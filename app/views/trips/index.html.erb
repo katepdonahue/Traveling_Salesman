@@ -11,14 +11,23 @@
   </script>
   <script type="text/javascript">
     function initialize() {
+      var start = new google.maps.LatLng(<%= @start.latitude %>, <%= @start.longitude %>)
       var mapOptions = {
-        center: new google.maps.LatLng(54.397, 50.644),
-        zoom: 6
+        center: start,
+        zoom: 15
       };
       var map = new google.maps.Map(document.getElementById("map-canvas"),
           mapOptions);
+
+      var marker = new google.maps.Marker({
+        position: start,
+        map: map,
+        title: 'Hello World!'
+      });
     }
+
     google.maps.event.addDomListener(window, 'load', initialize);
+    
   </script>
 </head>
 <body>
