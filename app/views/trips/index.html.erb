@@ -12,6 +12,7 @@
   <script type="text/javascript">
     function initialize() {
       var start = new google.maps.LatLng(<%= @start.latitude %>, <%= @start.longitude %>)
+      var end = new google.maps.LatLng(<%= @end.latitude %>, <%= @end.longitude %>)
       var mapOptions = {
         center: start,
         zoom: 15
@@ -19,10 +20,15 @@
       var map = new google.maps.Map(document.getElementById("map-canvas"),
           mapOptions);
 
-      var marker = new google.maps.Marker({
+      var startMarker = new google.maps.Marker({
         position: start,
         map: map,
         title: 'Hello World!'
+      });
+      var endMarker = new google.maps.Marker({
+        position: end,
+        map: map,
+        title: 'Goodbye World!'
       });
     }
 
