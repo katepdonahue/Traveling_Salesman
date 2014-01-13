@@ -1,5 +1,5 @@
 TravelingSalesman::Application.routes.draw do
-  get '/test' => 'maps#index'
+  get '/test' => 'trips#index'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
