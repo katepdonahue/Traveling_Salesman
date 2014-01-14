@@ -1,5 +1,5 @@
 class TripWaypoint < ActiveRecord::Base
   attr_accessible :trip_id
-  has_many :trips
-  has_many :waypoints
+  belongs_to :trip
+  belongs_to :waypoint
 end
