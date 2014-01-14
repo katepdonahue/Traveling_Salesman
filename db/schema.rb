@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140113205036) do
+ActiveRecord::Schema.define(:version => 20140114183625) do
 
   create_table "trip_waypoints", :force => true do |t|
     t.integer "trip_id"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(:version => 20140113205036) do
     t.string "name"
     t.float  "latitude"
     t.float  "longitude"
+    t.string "address"
   end
 
 end
