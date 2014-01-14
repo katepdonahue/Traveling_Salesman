@@ -47,6 +47,7 @@ GEM
     erubis (2.7.0)
     execjs (2.0.2)
     geocoder (1.1.9)
+    gmaps4rails (2.1.1)
     haml (4.0.5)
       tilt
     haml-rails (0.4)
@@ -120,6 +121,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   debugger
   geocoder
+  gmaps4rails
   haml
   haml-rails
   jquery-rails
