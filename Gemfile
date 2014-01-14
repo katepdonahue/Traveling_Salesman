@@ -6,10 +6,8 @@ gem 'rails', '3.2.14'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
-gem 'geocoder'
 gem 'haml'
 gem 'haml-rails'
-gem 'debugger'
 
 
 # Gems used only for assets and not required
