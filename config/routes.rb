@@ -1,5 +1,10 @@
 TravelingSalesman::Application.routes.draw do
-  get '/trips' => 'trips#index'
+
+  # get '/trips' => 'trips#index', as: 'trip_path'
+  # post '/trips' => 'trips#index', as: 'trip_path'
+
+  resources :trips
+  resources :waypoints
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
