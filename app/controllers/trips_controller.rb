@@ -11,22 +11,24 @@ class TripsController < ApplicationController
     end
   end
 
-  def edit
-    @trip = Trip.find(params[:id])
+  def new
+    @trip = Trip.new
   end
 
-  def update
-    @trip = Trip.find(params[:id])
-    @trip.waypoints.build(:name => params[:name], :latitude => params[:latitude].to_i, :longitude => params[:longitude].to_i)
+  def create
+    @trip = Trip.find_by_name(params[:trip][:name])
+    @trip.waypoints.build(:name => params[:trip][:name], :latitude => params[:trip][:waypoints][:latitude].to_i, :longitude => params[:trip][:waypoints][:longitude].to_i)
     @trip.save
-    @hash = Gmaps4rails.build_markers(@trip.waypoints) do |waypoint, marker|
-      marker.lat waypoint.latitude
-      marker.lng waypoint.longitude
-    end
+
+    redirect_to @trip
   end
 
   def show
     @trip = Trip.find(params[:id])
+    @hash = Gmaps4rails.build_markers(@trip.waypoints) do |waypoint, marker|
+      marker.lat waypoint.latitude
+      marker.lng waypoint.longitude
+    end
   end
 
 end
