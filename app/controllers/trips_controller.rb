@@ -16,11 +16,11 @@ class TripsController < ApplicationController
   end
 
   def create
-    @trip = Trip.find_by_name(params[:trip][:name])
-    @trip.waypoints.build(:name => params[:trip][:name], :latitude => params[:trip][:waypoints][:latitude].to_i, :longitude => params[:trip][:waypoints][:longitude].to_i)
+    @trip = Trip.new
+    @trip.waypoints.build(:name => params[:trip][:name], :latitude => params[:trip][:waypoints][:latitude], :longitude => params[:trip][:waypoints][:longitude])
     @trip.save
 
-    redirect_to @trip
+    redirect_to "/trips/#{@trip.id}"
   end
 
   def show
