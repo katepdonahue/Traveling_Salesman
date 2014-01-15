@@ -1,8 +1,14 @@
 TravelingSalesman::Application.routes.draw do
 
-  get '/trips/new' => "trips#new", as: 'trips'
-  post '/trips/:id' => "trips#create"
-  get "/trips/:id" => "trips#show"
+  # get '/trips/new' => "trips#new", as: 'trips'
+  # post '/trips/:id' => "trips#create"
+  # get "/trips/:id" => "trips#show"
+
+  # resources :trips
+
+  post '/trips' => "trips#create"
+  get '/trips/new' => "trips#new", as: 'new_trip'
+  get '/trips/:id' => "trips#show", as: 'trip'
 
   # get '/trips' => 'trips#index', as: 'trip_path'
   # post '/trips' => 'trips#index', as: 'trip_path'
