@@ -17,6 +17,7 @@ class TripsController < ApplicationController
 
   def create
     @trip = Trip.new
+    debugger
     @trip.waypoints.build(:name => params[:trip][:name], :latitude => params[:trip][:waypoints][:latitude], :longitude => params[:trip][:waypoints][:longitude])
     @trip.save
 
