@@ -1,9 +1,11 @@
-<%= nested_form_for @trip do |f| %>
-  <%= f.fields_for :waypoints do |waypoint_form| %>
-    <%= waypoint_form.text_field :name %>
-    <%= waypoint_form.text_field :address %>
-    <%= waypoint_form.link_to_remove "Remove this waypoint" %>
+<div id="panel">
+  <%= nested_form_for @trip do |f| %>
+    <%= f.fields_for :waypoints do |waypoint_form| %>
+      <%= waypoint_form.text_field :name %>
+      <%= waypoint_form.text_field :address %>
+      <%= waypoint_form.link_to_remove "Remove this waypoint" %>
+    <% end %>
+    <p><%= f.link_to_add "Add a waypoint", :waypoints %></p>
+    <%= f.submit %>
   <% end %>
-  <p><%= f.link_to_add "Add a waypoint", :waypoints %></p>
-  <%= f.submit %>
-<% end %>
+</div>

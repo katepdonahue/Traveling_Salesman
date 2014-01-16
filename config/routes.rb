@@ -5,6 +5,7 @@ TravelingSalesman::Application.routes.draw do
   # get "/trips/:id" => "trips#show"
 
   # resources :trips
+  get '/test' => "trips#index"
 
   post '/trips' => "trips#create"
   get '/trips/new' => "trips#new", as: 'new_trip'
