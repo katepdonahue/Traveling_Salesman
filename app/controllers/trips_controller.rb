@@ -24,6 +24,8 @@ class TripsController < ApplicationController
       marker.lat waypoint.latitude
       marker.lng waypoint.longitude
     end
+    debugger
+    hello
   end
 
 end
