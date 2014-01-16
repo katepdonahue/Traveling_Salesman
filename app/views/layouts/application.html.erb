@@ -43,8 +43,8 @@
         // directionsDisplay.setMap(map);
       }
 
-      function codeAddress() {
-        var addresses = document.getElementsByClassName("address");
+      function addMarker() {
+        var addresses = document.getElementsByClassName("waypoints");
         for (var i=0; i<addresses.length; i++) {
           address = addresses[i].value;
           geocoder.geocode( { 'address': address}, function(results, status) {
@@ -82,9 +82,9 @@
 </head>
 <body>
 
-<div id="panel">
+<!-- <div id="panel">
   <b>Start: </b>
-  <select class="address" onchange="codeAddress();">
+  <select class="address" onchange="addMarker();">
     <option value="25 chapel street brooklyn, ny 11201">School</option>
     <option value="25 chapel street brooklyn, ny 11201">School</option>
     <option value="joplin, mo">Joplin, MO</option>
@@ -99,7 +99,7 @@
     <option value="los angeles, ca">Los Angeles</option>
   </select>
   <b>End: </b>
-  <select class="address" onchange="codeAddress();">
+  <select class="address" onchange="addMarker();">
     <option value="chicago, il">Chicago</option>
     <option value="276 vanderbilt ave brooklyn ny 11205">Empire State Building</option>
     <option value="joplin, mo">Joplin, MO</option>
@@ -113,7 +113,7 @@
     <option value="san bernardino, ca">San Bernardino</option>
     <option value="los angeles, ca">Los Angeles</option>
   </select>
-  </div>
+  </div> -->
   <!-- <div id="map-canvas"></div> -->
 
 <%= yield %>

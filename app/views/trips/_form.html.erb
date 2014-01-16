@@ -1,9 +1,7 @@
 <div>
   <%= nested_form_for @trip do |f| %>
     <%= f.fields_for :waypoints do |waypoint_form| %>
-      <%= waypoint_form.text_field :name %>
-      <%= waypoint_form.text_field :latitude %>
-      <%= waypoint_form.text_field :longitude %>
+      <%= waypoint_form.text_field :address, :class => "waypoints", :onchange => "addMarker();" %>
       <%= waypoint_form.link_to_remove "Remove this waypoint" %>
     <% end %>
     <p><%= f.link_to_add "Add a waypoint", :waypoints %></p>
