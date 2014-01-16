@@ -8,6 +8,7 @@ gem 'rails', '3.2.14'
 gem 'sqlite3'
 gem 'haml'
 gem 'haml-rails'
+gem 'nested_form'
 
 
 # Gems used only for assets and not required

@@ -4,4 +4,5 @@ class Trip < ActiveRecord::Base
   has_many :waypoints, :through => :trip_waypoints
 
   accepts_nested_attributes_for :trip_waypoints
+  accepts_nested_attributes_for :waypoints
 end

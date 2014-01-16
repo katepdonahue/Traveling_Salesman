@@ -13,13 +13,14 @@ class TripsController < ApplicationController
 
   def new
     @trip = Trip.new
+    @trip.waypoints.build
   end
 
   def create
-    @trip = Trip.new
-    params[:trip][:waypoints].each do |hash|
-      @trip.waypoints.build(:name => hash[:name], :latitude => hash[:latitude], :longitude => hash[:longitude])
-    end
+    @trip = Trip.new(params[:trip])
+    # params[:trip][:waypoints].each do |hash|
+    #   @trip.waypoints.build(:name => hash[:name], :latitude => hash[:latitude], :longitude => hash[:longitude])
+    # end
     @trip.save
     redirect_to "/trips/#{@trip.id}"
   end

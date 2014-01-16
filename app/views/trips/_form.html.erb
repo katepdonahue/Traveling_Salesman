@@ -1,96 +1,10 @@
-<!-- / = form_for(@trip) do |f|
-/   = f.label :name, "Name:"
-/   = f.text_field :name
-/   = f.fields_for :waypoints do |builder|
-/     %fieldset
-/       %fieldset
-/         = builder.label :name, "Start"
-/         = builder.hidden_field :name, value: "start"
-/         %br
-/         = builder.label :latitude, "Latitude:"
-/         %br
-/         = builder.text_field :latitude
-/         %br
-/         = builder.label :longitude, "Longitude:"
-/         %br
-/         = builder.text_field :longitude
-/       %fieldset
-/         = builder.label :name, "End"
-/         = builder.hidden_field :name, value: "end"
-/         %br
-/         = builder.label :latitude, "Latitude:"
-/         %br
-/         = builder.text_field :latitude
-/         %br
-/         = builder.label :longitude, "Longitude:"
-/         %br
-/         = builder.text_field :longitude
-/   %br
-/   = f.submit -->
-
-<!--   <form accept-charset="UTF-8" action="/trips/<%#= @trip.id %>" class="new_trip" id="new_trip" method="post">
-    <div style="margin:0;padding:0;display:inline">
-      <input name="utf8" type="hidden" value="✓">
-      <input name="authenticity_token" type="hidden" value="b+Zg2FUckEgyJm49/0yC0fsgTMl3KrhyN+2q6rsDoX0=">
-    </div>
-    <label for="trip_name">Name:</label>
-    <input id="trip_name" name="trip[name]" size="30" type="text">
-    <fieldset>
-      <label for="trip_waypoints_name">Start</label>
-      <input id="trip_waypoints_name" name="trip[waypoints][name]" type="hidden" value="start">
-      <br>
-      <label for="trip_waypoints_latitude">Latitude:</label>
-      <br>
-      <input id="trip_waypoints_latitude" name="trip[waypoints][latitude]" size="30" type="text">
-      <br>
-      <label for="trip_waypoints_longitude">Longitude:</label>
-      <br>
-      <input id="trip_waypoints_longitude" name="trip[waypoints][longitude]" size="30" type="text">
-    </fieldset>
-    <fieldset>
-      <label for="trip_waypoints_name">End</label>
-      <input id="trip_waypoints_name" name="trip[waypoints][name]" type="hidden" value="end">
-      <br>
-      <label for="trip_waypoints_latitude">Latitude:</label>
-      <br>
-      <input id="trip_waypoints_latitude" name="trip[waypoints][latitude]" size="30" type="text">
-      <br>
-      <label for="trip_waypoints_longitude">Longitude:</label>
-      <br>
-      <input id="trip_waypoints_longitude" name="trip[waypoints][longitude]" size="30" type="text">
-    </fieldset>
-    <br>
-    <input name="commit" type="submit" value="Create Trip">
-</form>
- -->
-
-<form action="/trips/<%= @trip.id %>" method="POST">
-  <fieldset>
-    <li>
-      <label>Start</label>
-      <input id="trip_waypoints_name" name="trip[waypoints][][name]" type="hidden" value="start"></li>
-    <li>
-      <label>Latitude</label>
-      <input id="trip_waypoints_latitude" name="trip[waypoints][][latitude]" size="30" type="text">
-    </li>
-    <li>
-      <label>Longitude</label>
-      <input id="trip_waypoints_longitude" name="trip[waypoints][][longitude]" size="30" type="text">
-    </li>
-  </fieldset>
-  <fieldset>
-    <li>
-      <label>End</label>
-      <input id="trip_waypoints_name" name="trip[waypoints][][name]" type="hidden" value="end"></li>
-    <li>
-      <label>Latitude</label>
-      <input id="trip_waypoints_latitude" name="trip[waypoints][][latitude]" size="30" type="text">
-    </li>
-    <li>
-      <label>Longitude</label>
-      <input id="trip_waypoints_longitude" name="trip[waypoints][][longitude]" size="30" type="text">
-    </li>
-  </fieldset>
-
-  <input type="submit"/>
-</form>
+<%= nested_form_for @trip do |f| %>
+  <%= f.fields_for :waypoints do |waypoint_form| %>
+    <%= waypoint_form.text_field :name %>
+    <%= waypoint_form.text_field :latitude %>
+    <%= waypoint_form.text_field :longitude %>
+    <%= waypoint_form.link_to_remove "Remove this waypoint" %>
+  <% end %>
+  <p><%= f.link_to_add "Add a waypoint", :waypoints %></p>
+  <%= f.submit %>
+<% end %>
