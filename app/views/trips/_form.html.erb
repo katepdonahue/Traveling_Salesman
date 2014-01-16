@@ -1,4 +1,4 @@
-<div id="panel">
+<div>
   <%= nested_form_for @trip do |f| %>
     <%= f.fields_for :waypoints do |waypoint_form| %>
       <%= waypoint_form.text_field :name %>
