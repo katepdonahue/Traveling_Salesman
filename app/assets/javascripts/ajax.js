@@ -1,7 +1,7 @@
 function loadJSON()
 {
   var post_file = "/trips"
-  var get_file = "/trips/:id"
+  var get_file = "/trips/{tripId}"
   if (window.XMLHttpRequest) {// IE7+, Firefox, Chrome, Opera, Safari
     http_request = new XMLHttpRequest();
   }
@@ -14,9 +14,8 @@ function loadJSON()
     }
   }
   http_request.open("POST", post_file, true);
+  http_request.open("GET", get_file, true);
   http_request.send();
-  // http_request.open("GET", get_file, true);
-  // http_request.send();
 }
 
 
