@@ -1,5 +1,6 @@
 require './app/models/trip'
 
+
 describe Trip do
 
   trip = Trip.new

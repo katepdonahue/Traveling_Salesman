@@ -1,4 +1,6 @@
 require "httparty"
+gem "active_record"
+config.gem "active_record", :version => '3.2.14'
 
 class Trip < ActiveRecord::Base
 	attr_accessible :name, :waypoints_attributes
