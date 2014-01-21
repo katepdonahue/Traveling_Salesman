@@ -28,14 +28,9 @@ class Trip < ActiveRecord::Base
     hour.to_i * 60 + mins.to_i
   end
 
-  def arrayify
-    array = []
-    self.waypoints.each do |waypoint|
-      array << waypoint.id
-    end
-    array
+  def permutations
+    self.waypoints.permutation.map(&:push)
   end
-
 
 
 end
