@@ -28,8 +28,16 @@ class Trip < ActiveRecord::Base
     hour.to_i * 60 + mins.to_i
   end
 
-  def permutations
+  def ways
     self.waypoints.permutation.map(&:push)
+  end
+
+  def pairs
+    array = []
+    (self.ways.size - 1).times do |i|
+      array << [ways[i], ways[i+1]]
+    end
+    array
   end
 
 
