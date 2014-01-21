@@ -33,10 +33,10 @@ class Trip < ActiveRecord::Base
     self.waypoints.permutation.map(&:push)
   end
 
-  def pairs
+  def pairs(way)
     array = []
-    (self.ways.size - 1).times do |i|
-      array << [ways[i], ways[i+1]]
+    (way.size - 1).times do |i|
+      array << [way[i], way[i+1]]
     end
     array
   end
