@@ -1,4 +1,4 @@
-require './trip'
+require './app/models/trip'
 
 describe Trip do
 
