@@ -15,7 +15,7 @@ class Trip < ActiveRecord::Base
   def time(i, j)
     trip_origin = self.waypoints[i].address.gsub(" ", "%20")
     trip_destination = self.waypoints[j].address.gsub(" ", "%20")
-    file = HTTParty.get("https://maps.googleapis.com/maps/api/directions/json?origin=#{trip_origin}&destination=#{trip_destination}&TravelMode=TRANSIT&sensor=false&departure_time=1343641500&mode=transit")
+    file = HTTParty.get("https://maps.googleapis.com/maps/api/directions/json?origin=#{trip_origin}&destination=#{trip_destination}&TravelMode=TRANSIT&sensor=false&departure_time=#{Time.now.to_i}&mode=transit")
     #Time.to_i gives Unix time
     file["routes"][0]["legs"][0]["duration"]["text"]
   end
