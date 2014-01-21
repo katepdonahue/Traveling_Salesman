@@ -1,7 +1,6 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    ZenTest (4.9.5)
     actionmailer (3.2.14)
       actionpack (= 3.2.14)
       mail (~> 2.5.4)
@@ -30,8 +29,6 @@ GEM
       i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
     arel (3.0.3)
-    autotest (4.4.6)
-      ZenTest (>= 4.4.1)
     builder (3.0.4)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -47,7 +44,7 @@ GEM
       debugger-ruby_core_source (~> 1.3.1)
     debugger-linecache (1.2.0)
     debugger-ruby_core_source (1.3.1)
-    diff-lcs (1.1.3)
+    diff-lcs (1.2.5)
     erubis (2.7.0)
     execjs (2.0.2)
     geocoder (1.1.9)
@@ -102,19 +99,23 @@ GEM
     rake (10.1.1)
     rdoc (3.12.2)
       json (~> 1.4)
-    rspec (2.11.0)
-      rspec-core (~> 2.11.0)
-      rspec-expectations (~> 2.11.0)
-      rspec-mocks (~> 2.11.0)
-    rspec-core (2.11.1)
-    rspec-expectations (2.11.3)
-      diff-lcs (~> 1.1.3)
-    rspec-mocks (2.11.3)
-    rspec-rails (2.11.0)
+    rspec-collection_matchers (0.0.2)
+      rspec-expectations (>= 2.99.0.beta1)
+    rspec-core (3.0.0.beta1)
+    rspec-expectations (3.0.0.beta1)
+      diff-lcs (>= 1.1.3, < 2.0)
+      rspec-support (= 3.0.0.beta1)
+    rspec-mocks (3.0.0.beta1)
+    rspec-rails (3.0.0.beta1)
       actionpack (>= 3.0)
+      activemodel (>= 3.0)
       activesupport (>= 3.0)
       railties (>= 3.0)
-      rspec (~> 2.11.0)
+      rspec-collection_matchers
+      rspec-core (= 3.0.0.beta1)
+      rspec-expectations (= 3.0.0.beta1)
+      rspec-mocks (= 3.0.0.beta1)
+    rspec-support (3.0.0.beta1)
     sass (3.2.13)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -140,7 +141,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  autotest
   coffee-rails (~> 3.2.1)
   debugger
   geocoder
@@ -151,7 +151,7 @@ DEPENDENCIES
   jquery-rails
   nested_form
   rails (= 3.2.14)
-  rspec-rails
+  rspec-rails (~> 3.0.0.beta)
   sass-rails (~> 3.2.3)
   sqlite3
   uglifier (>= 1.0.3)

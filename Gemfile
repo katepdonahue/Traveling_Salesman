@@ -10,9 +10,8 @@ gem 'haml'
 gem 'haml-rails'
 gem 'nested_form'
 
-group :test, :development do
-  gem 'rspec-rails'
-  gem "autotest"
+group :development, :test do
+  gem 'rspec-rails', '~> 3.0.0.beta'
 end
 
 
