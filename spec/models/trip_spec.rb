@@ -85,4 +85,19 @@ describe Trip do
     end
   end
 
+  describe "#best_route" do
+    it "should return the fastest route" do
+      way1 = ["hey", "what?"]
+      way2 = ["yeah!", "woo"]
+      trip.stub(:total_time) do |arg|
+        if arg == way1
+          return 65
+        else
+          return 62
+        end
+      end
+      expect(trip.best_route).to eq(way2)
+    end
+  end
+
 end
