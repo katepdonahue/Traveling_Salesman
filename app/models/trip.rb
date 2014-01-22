@@ -61,7 +61,7 @@ class Trip < ActiveRecord::Base
   end
 
   def end
-    if self.start?
+    if self.end?
        self.waypoints.each do |waypoint|
       return waypoint if waypoint.name == "End"
     end
