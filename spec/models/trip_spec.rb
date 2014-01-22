@@ -11,11 +11,11 @@ describe Trip do
   describe "#to_mins" do
     it "should work for singular hours and mins" do
       trip.stub(:time => "1 hour 1 min")
-      expect(trip.to_mins(0, 1)).to eq(61)
+      expect(trip.to_mins([1,2])).to eq(61)
     end
     it "should work for plural hours and mins" do
       trip.stub(:time => "2 hours 3 mins")
-      expect(trip.to_mins(0, 1)).to eq(123)
+      expect(trip.to_mins([1,2])).to eq(123)
     end
   end
 
