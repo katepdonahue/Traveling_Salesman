@@ -20,12 +20,10 @@ describe Trip do
   end
 
   describe "#ways" do
-    a = trip.waypoints[0]
     b = trip.waypoints[1]
     c = trip.waypoints[2]
-    d = trip.waypoints[3]
     it "should return all the permutations" do
-      expect(trip.ways).to eq([[a, b, c, d], [a, c, b, d]])
+      expect(trip.ways).to eq([[b, c], [c, b]])
     end
   end
 
