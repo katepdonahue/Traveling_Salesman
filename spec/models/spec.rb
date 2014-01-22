@@ -4,8 +4,8 @@ require 'spec_helper'
 describe Trip do
 
   trip = Trip.new
-  trip.waypoints.build(:name => "first", :address => "25 chapel st. Brooklyn, Ny 11201")
-  trip.waypoints.build(:name => "second", :address => "Empire State Building")
+  trip.waypoints.build(:name => "Start", :address => "25 chapel st. Brooklyn, Ny 11201")
+  trip.waypoints.build(:name => "End", :address => "Empire State Building")
   
   describe "#to_mins" do
     it "should work for singular hours and mins" do
@@ -23,6 +23,13 @@ describe Trip do
   end
 
   describe "#pairs" do
+
+  end
+
+  describe "#start?" do
+    it "should return true if a waypoint has the name 'Start'" do
+        expect(trip.start?).to eq(true)
+    end
 
   end
 

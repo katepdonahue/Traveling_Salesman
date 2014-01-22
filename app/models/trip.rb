@@ -28,7 +28,8 @@ class Trip < ActiveRecord::Base
   end
 
   def ways
-    self.waypoints.permutation.map(&:push)
+    permutations = self.waypoints.permutation.map(&:push)
+    permutations.keep_if {|permutation| permutation[0] == trip.start && permutation[-1] == trip.end}
   end
 
   def pairs(way)
@@ -38,6 +39,34 @@ class Trip < ActiveRecord::Base
     end
     array
   end
+
+  def start?
+    self.waypoints.each do |waypoint|
+      return true if waypoint.name == "Start"
+    end
+  end
+
+  def start
+    if self.start?
+       self.waypoints.each do |waypoint|
+      return waypoint if waypoint.name == "Start"
+    end
+  end
+
+
+  def end?
+    self.waypoints.each do |waypoint|
+      return true if waypoint.name == "End"
+    end
+  end
+
+  def end
+    if self.start?
+       self.waypoints.each do |waypoint|
+      return waypoint if waypoint.name == "End"
+    end
+  end
+
 
 
 end
