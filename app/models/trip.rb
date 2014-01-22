@@ -20,7 +20,8 @@ class Trip < ActiveRecord::Base
     file["routes"][0]["legs"][0]["duration"]["text"]
   end
 
-  def to_mins(duration)
+  def to_mins(i, j)
+    duration = self.time(i,j)
     match = /(\d*)\shours?\s(\d*)\smins?/.match(duration)
     hour = match[1]
     mins = match[2]
@@ -48,8 +49,9 @@ class Trip < ActiveRecord::Base
 
   def start
     if self.start?
-       self.waypoints.each do |waypoint|
-      return waypoint if waypoint.name == "Start"
+      self.waypoints.each do |waypoint|
+        return waypoint if waypoint.name == "Start"
+      end
     end
   end
 
@@ -62,8 +64,9 @@ class Trip < ActiveRecord::Base
 
   def end
     if self.end?
-       self.waypoints.each do |waypoint|
-      return waypoint if waypoint.name == "End"
+      self.waypoints.each do |waypoint|
+        return waypoint if waypoint.name == "End"
+      end
     end
   end
 
