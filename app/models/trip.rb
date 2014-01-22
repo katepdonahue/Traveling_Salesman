@@ -44,6 +44,11 @@ class Trip < ActiveRecord::Base
     array
   end
 
+  def ways
+
+  end
+
+
   def start?
     self.waypoints.each do |waypoint|
       return true if waypoint.name == "Start"

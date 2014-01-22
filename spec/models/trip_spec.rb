@@ -73,4 +73,14 @@ describe Trip do
     end
   end
 
+  describe "#ways" do
+    it "should return all the ways for the trip, with each way in pairs" do
+      a = trip.waypoints[0]
+      b = trip.waypoints[1]
+      c = trip.waypoints[2]
+      d = trip.waypoints[3]
+      expect(trip.ways).to eq([[[a,b],[b,c],[c,d]],[[a,c],[c,b],[b,d]]])
+    end
+  end
+
 end
