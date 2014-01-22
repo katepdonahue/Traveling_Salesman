@@ -42,7 +42,12 @@ describe Trip do
     it "should return true if a waypoint has the name 'Start'" do
       expect(trip.start?).to eq(true)
     end
+  end
 
+  describe "#start" do
+    it "should return the waypoint that has the name 'Start'" do
+      expect(trip.start).to eq(trip.waypoints[0])
+    end
   end
 
 end
