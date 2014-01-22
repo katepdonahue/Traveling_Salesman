@@ -4,6 +4,8 @@ describe Trip do
 
   trip = Trip.new
   trip.waypoints.build(:name => "Start", :address => "25 chapel st. Brooklyn, Ny 11201")
+  trip.waypoints.build(:name => "center", :address => "900 Dekalb St. Brooklyn, NY 11221")
+  trip.waypoints.build(:name => "otherfis", :address => "11 Broadway #260, New York, NY 10004")
   trip.waypoints.build(:name => "End", :address => "Empire State Building")
   
   describe "#to_mins" do
@@ -18,7 +20,13 @@ describe Trip do
   end
 
   describe "#ways" do
-
+    a = trip.waypoints[0]
+    b = trip.waypoints[1]
+    c = trip.waypoints[2]
+    d = trip.waypoints[3]
+    it "should return all the permutations" do
+      expect(trip.ways).to eq([[a, b, c, d], [a, c, b, d]])
+    end
   end
 
   describe "#pairs" do
