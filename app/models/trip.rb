@@ -45,7 +45,11 @@ class Trip < ActiveRecord::Base
   end
 
   def ways
-
+    ways = Array.new
+    self.options.each do |option|
+      ways << self.pairs(option)
+    end
+    ways
   end
 
 
