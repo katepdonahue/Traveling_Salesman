@@ -82,6 +82,10 @@ class Trip < ActiveRecord::Base
     end
   end
 
+  def total_time(way)
+
+  end
+
 
 
 end

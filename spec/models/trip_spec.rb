@@ -69,7 +69,9 @@ describe Trip do
 
   describe "#total_time(way)" do
     it "should return the total time to travel one way" do
-      expect(trip.total_time(way)).to eq("time in unix")
+      way = trip.ways.first
+      trip.stub(:to_mins => 63)
+      expect(trip.total_time(way)).to eq(189)
     end
   end
 
