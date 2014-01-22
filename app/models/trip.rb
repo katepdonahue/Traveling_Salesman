@@ -29,7 +29,8 @@ class Trip < ActiveRecord::Base
   def ways
     mutable = []
     self.waypoints.each { |elt| mutable << elt }
-    mutable.delete(self.start, self.end)
+    mutable.delete(self.start)
+    mutable.delete(self.end)
     mutable.permutation.map(&:push)
   end
 
