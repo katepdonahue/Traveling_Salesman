@@ -26,7 +26,7 @@ class Trip < ActiveRecord::Base
     hour.to_i * 60 + mins.to_i
   end
 
-  def ways
+  def options
     mutable = []
     self.waypoints.each { |elt| mutable << elt }
     mutable.delete(self.start)

@@ -19,11 +19,11 @@ describe Trip do
     end
   end
 
-  describe "#ways" do
+  describe "#options" do
     b = trip.waypoints[1]
     c = trip.waypoints[2]
     it "should return all the permutations" do
-      expect(trip.ways).to eq([[b, c], [c, b]])
+      expect(trip.options).to eq([[b, c], [c, b]])
     end
   end
 
@@ -33,7 +33,7 @@ describe Trip do
       b = trip.waypoints[1]
       c = trip.waypoints[2]
       d = trip.waypoints[3]
-      way = trip.ways.first
+      way = trip.options.first
       expect(trip.pairs(way)).to eq([[a,b], [b,c], [c,d]])
     end
   end
@@ -59,6 +59,17 @@ describe Trip do
   describe "#end" do
     it "should return the waypoint that has the name 'End'" do
       expect(trip.end).to eq(trip.waypoints[3])
+    end
+  end
+
+  describe "#route" do
+    it "should return the fastest route for our trip" do
+    end
+  end
+
+  describe "#total_time(way)" do
+    it "should return the total time to travel one way" do
+      expect(trip.total_time(way)).to eq("time in unix")
     end
   end
 
