@@ -1,4 +1,3 @@
-require './app/models/trip'
 require 'spec_helper'
 
 describe Trip do

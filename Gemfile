@@ -1,17 +1,17 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.14'
+gem 'rails', '3.2.15'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
 gem 'haml'
 gem 'haml-rails'
 gem 'nested_form'
 
 group :development, :test do
-  gem 'rspec-rails', '~> 3.0.0.beta'
+  gem 'sqlite3'
+  gem 'rspec-rails', '2.11.0'
 end
 
 

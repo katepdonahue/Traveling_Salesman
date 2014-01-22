@@ -1,5 +1,3 @@
-require "httparty"
-
 class Trip < ActiveRecord::Base
 	attr_accessible :name, :waypoints_attributes
   has_many :trip_waypoints, inverse_of: :waypoint
