@@ -50,4 +50,16 @@ describe Trip do
     end
   end
 
+    describe "#end?" do
+    it "should return true if a waypoint has the name 'End'" do
+      expect(trip.end?).to eq(true)
+    end
+  end
+
+  describe "#end" do
+    it "should return the waypoint that has the name 'End'" do
+      expect(trip.end).to eq(trip.waypoints[3])
+    end
+  end
+
 end
