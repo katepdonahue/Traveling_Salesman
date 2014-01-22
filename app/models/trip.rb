@@ -35,6 +35,8 @@ class Trip < ActiveRecord::Base
   end
 
   def pairs(way)
+    way.unshift(self.start)
+    way.push(self.end)
     array = []
     (way.size - 1).times do |i|
       array << [way[i], way[i+1]]
