@@ -28,7 +28,14 @@ describe Trip do
   end
 
   describe "#pairs" do
-
+    it "should return an array of the possible pairs in one way" do
+      a = trip.waypoints[0]
+      b = trip.waypoints[1]
+      c = trip.waypoints[2]
+      d = trip.waypoints[3]
+      way = trip.ways.first
+      expect(trip.pairs(way)).to eq([[a,b], [b,c], [c,d]])
+    end
   end
 
   describe "#start?" do
