@@ -88,10 +88,10 @@ class Trip < ActiveRecord::Base
 
   def best_route
     best_way = self.ways.first
-    best = total_time(best_way)
+    best = self.total_time(best_way)
     self.ways.each do |way|
-      if total_time(way) < best
-        best = total_time(way)
+      if self.total_time(way) < best
+        best = self.total_time(way)
         best_way = way
       end
     end

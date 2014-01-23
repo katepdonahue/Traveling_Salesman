@@ -5,6 +5,8 @@
       <% pair.each do |point| %>
         <%= point.address %>
         <br/>
+        <%= @trip.time(pair) %>
+        <br/>
       <% end %>
     </li>
   <% end %>
