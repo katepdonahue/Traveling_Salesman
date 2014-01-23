@@ -16,16 +16,10 @@ class Trip < ActiveRecord::Base
 
   def to_mins(pair)
     duration = self.time(pair)
-    if duration.include?("hour")
-      match = /(\d*)\shours?\s(\d*)\smins?/.match(duration)
-      hour = match[1]
-      mins = match[2]
-    else 
-      match = /(\d*)\smins?/.match(duration)
-      hour = 0
-      mins = match[1]
-    end
-    hour.to_i * 60 + mins.to_i
+    match = /((?<hours>\d*)\shours?)?\s?((?<mins>\d*)\smins?)?/.match(duration)
+    hours = match[:hours] || 0
+    mins = match[:mins] || 0
+    hours.to_i * 60 + mins.to_i
   end
 
   def options
