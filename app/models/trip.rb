@@ -6,10 +6,6 @@ class Trip < ActiveRecord::Base
   accepts_nested_attributes_for :trip_waypoints
   accepts_nested_attributes_for :waypoints
 
-  def route
-
-  end
-
   def time(pair)
     trip_origin = self.waypoints[pair[0]].address.gsub(" ", "%20")
     trip_destination = self.waypoints[pair[1]].address.gsub(" ", "%20")
@@ -90,6 +86,17 @@ class Trip < ActiveRecord::Base
     total_time
   end
 
+  def best_route
+    best_way = self.ways.first
+    best = total_time(best_way)
+    self.ways.each do |way|
+      if total_time(way) < best
+        best = total_time(way)
+        best_way = way
+      end
+    end
+    best_way
+  end
 
 
 end

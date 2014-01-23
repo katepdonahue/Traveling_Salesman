@@ -87,16 +87,20 @@ describe Trip do
 
   describe "#best_route" do
     it "should return the fastest route" do
-      way1 = ["hey", "what?"]
-      way2 = ["yeah!", "woo"]
+      a = trip.waypoints[0]
+      b = trip.waypoints[1]
+      c = trip.waypoints[2]
+      d = trip.waypoints[3]
       trip.stub(:total_time) do |arg|
-        if arg == way1
-          return 65
+        if arg == [[a,b],[b,c],[c,d]]
+          65
+        elsif arg == [[a,c],[c,b],[b,d]]
+          62
         else
-          return 62
+          "what are you doing then?????"
         end
       end
-      expect(trip.best_route).to eq(way2)
+      expect(trip.best_route).to eq([[a,c],[c,b],[b,d]])
     end
   end
 
