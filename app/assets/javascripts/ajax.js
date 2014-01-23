@@ -19,7 +19,7 @@ function loadJSON()
   // http_request.open("GET", get_file, true);
   // http_request.send();
   return false;
-};
+}
 $('#button').click(loadJSON());
 
 
