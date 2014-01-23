@@ -1,6 +1,16 @@
 <div>
   <%= nested_form_for @trip do |f| %>
     <%= f.fields_for :waypoints do |waypoint_form| %>
+      <%= waypoint_form.label :start %>:
+      <%= waypoint_form.hidden_field :name, :value => "Start" %>
+      <%= waypoint_form.text_field :address, :class => "waypoints", :onchange => "addMarker();" %>
+    <% end %>
+    <%= f.fields_for :waypoints do |waypoint_form| %>
+      <%= waypoint_form.label :end %>:
+      <%= waypoint_form.hidden_field :name, :value => "End" %>
+      <%= waypoint_form.text_field :address, :class => "waypoints", :onchange => "addMarker();" %>
+    <% end %>
+    <%= f.fields_for :waypoints do |waypoint_form| %>
       <%= waypoint_form.text_field :address, :class => "waypoints", :onchange => "addMarker();" %>
       <%= waypoint_form.link_to_remove "Remove this waypoint" %>
     <% end %>
