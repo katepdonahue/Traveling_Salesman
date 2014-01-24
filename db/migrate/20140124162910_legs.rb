@@ -5,6 +5,9 @@ class Legs < ActiveRecord::Migration
       t.string :duration
       t.string :html_instructions
       t.string :travel_mode
+      t.string :travel_mode
+      t.string :polyline
+      # everything below this is only for transit legs
       t.string :arrival_time
       t.float :arrival_stop_lat
       t.float :arrival_stop_lng
