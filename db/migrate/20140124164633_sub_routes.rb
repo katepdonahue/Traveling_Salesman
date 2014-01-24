@@ -1,4 +1,4 @@
-class Routes < ActiveRecord::Migration
+class SubRoutes < ActiveRecord::Migration
   def change
     create_table :routes do |t|
       t.string :arrival_time
