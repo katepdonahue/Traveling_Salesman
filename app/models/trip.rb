@@ -84,7 +84,6 @@ class Trip < ActiveRecord::Base
     start_time = Time.now.to_i
     way.each do |pair|
       total_time += self.to_mins(pair, start_time)
-      debugger
       start_time += total_time * 60 # that converts total_time to unix
     end
     total_time
