@@ -7,7 +7,7 @@ class Trip < ActiveRecord::Base
   accepts_nested_attributes_for :waypoints
 
   def time(pair, start_time)
-    sleep(1)
+    sleep(0.75)
     trip_origin = pair[0].address.gsub(" ", "%20")
     trip_destination = pair[1].address.gsub(" ", "%20")
     file = HTTParty.get("https://maps.googleapis.com/maps/api/directions/json?origin=#{trip_origin}&destination=#{trip_destination}&sensor=false&departure_time=#{start_time}&mode=driving")
