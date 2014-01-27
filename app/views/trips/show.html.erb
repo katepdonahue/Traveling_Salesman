@@ -5,7 +5,7 @@
       <% pair.each do |point| %>
         <%= point.address %>
         <br/>
-        <%= @trip.time(pair) %>
+        <%= @trip.time(pair, Time.now.to_i) %>
         <br/>
       <% end %>
     </li>
