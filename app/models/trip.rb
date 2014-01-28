@@ -22,11 +22,10 @@ class Trip < ActiveRecord::Base
     way.unshift(self.start)
     way.push(self.end)
     (way.size - 1).times do |i|
-      sub_route = SubRoute.create(:origin_waypoint_id => way[i].id, :destination_waypoint_id => way[i+1].id)
-      debugger
+      sub_route = {:origin_waypoint_id => way[i].id, :destination_waypoint_id => way[i+1].id}
       new_route.sub_routes.build(sub_route)
     end
-    self.routes.build(new_route)
+    new_route.trip_id = self.id
   end
 
   def populate_routes
