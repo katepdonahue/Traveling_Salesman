@@ -11,7 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140114230149) do
+ActiveRecord::Schema.define(:version => 20140124165128) do
+
+  create_table "sub_routes", :force => true do |t|
+    t.string  "origin_waypoint_id"
+    t.string  "destination_waypoint_id"
+    t.integer "departure_time"
+    t.text    "google_results"
+  end
 
   create_table "trip_waypoints", :force => true do |t|
     t.integer "trip_id"
@@ -19,7 +26,8 @@ ActiveRecord::Schema.define(:version => 20140114230149) do
   end
 
   create_table "trips", :force => true do |t|
-    t.string "name"
+    t.string  "name"
+    t.integer "total_time"
   end
 
   create_table "waypoints", :force => true do |t|
