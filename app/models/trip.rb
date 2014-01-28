@@ -64,18 +64,12 @@ class Trip < ActiveRecord::Base
     end
   end
 
-  def total_time(way)
-    total_time = 0
-    start_time = Time.now.to_i
-    way.each do |pair|
-      total_time += self.to_mins(pair, start_time)
-      start_time += total_time * 60 # that converts total_time to unix
-    end
-    total_time
+  def request
+    self.populate_routes
+    self.routes.each { |route| route.request }
   end
 
   def best_route
-    self.populate_routes
     best_route = self.routes.first
     best_time = self.routes.first.total_time
     # Routes.minimum(:total_time) => returns the route obj with shortest time
