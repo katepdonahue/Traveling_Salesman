@@ -2,6 +2,7 @@ class Sub_Route < ActiveRecord::Base
   attr_accessible :origin_waypoint_id, :destination_waypoint_id, :departure_time, :google_results
   belongs_to :trip
   serialize :google_results, JSON
+  belongs_to :route
   
   def request_directions
     sleep(0.75)
