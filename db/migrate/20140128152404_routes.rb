@@ -3,6 +3,7 @@ class Routes < ActiveRecord::Migration
     create_table :routes do |t|
       t.integer :total_time
       t.boolean :best
+      t.integer :trip_id
     end
   end
 end

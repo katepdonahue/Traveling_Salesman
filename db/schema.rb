@@ -16,13 +16,15 @@ ActiveRecord::Schema.define(:version => 20140128170913) do
   create_table "routes", :force => true do |t|
     t.integer "total_time"
     t.boolean "best"
+    t.integer "trip_id"
   end
 
   create_table "sub_routes", :force => true do |t|
-    t.string  "origin_waypoint_id"
-    t.string  "destination_waypoint_id"
+    t.integer "origin_waypoint_id"
+    t.integer "destination_waypoint_id"
     t.integer "departure_time"
     t.text    "google_results"
+    t.integer "route_id"
   end
 
   create_table "trip_waypoints", :force => true do |t|
@@ -33,7 +35,7 @@ ActiveRecord::Schema.define(:version => 20140128170913) do
   create_table "trips", :force => true do |t|
     t.string  "name"
     t.integer "total_time"
-    t.integer "departure_time", :default => 1390948440
+    t.integer "departure_time", :default => 1390950414
   end
 
   create_table "waypoints", :force => true do |t|
