@@ -11,5 +11,17 @@ class Sub_Routes < ActiveRecord::Base
     self.google_results = HTTParty.get("https://maps.googleapis.com/maps/api/directions/json?origin=#{trip_origin}&destination=#{trip_destination}&sensor=false&departure_time=#{self.departure_time}&mode=driving")
   end
 
+  def duration
+    self.google_results["routes"][0]["legs"][0]["duration"]["text"]
+  end
+
+  def to_mins
+    match = /((?<hours>\d*)\shours?)?\s?((?<mins>\d*)\smins?)?/.match(self.duration)
+    hours = match[:hours] || 0
+    mins = match[:mins] || 0
+    hours.to_i * 60 + mins.to_i
+  end
+
+
 
 end
