@@ -17,7 +17,7 @@ class Trip < ActiveRecord::Base
     mutable.permutation.map(&:push)
   end
 
-  def pairs(way)
+  def sub_routes(way)
     new_route = Route.new
     way.unshift(self.start)
     way.push(self.end)
@@ -26,8 +26,15 @@ class Trip < ActiveRecord::Base
       new_route.sub_routes.build(sub_route)
     end
     self.routes.build(new_route)
+  end
+
+  def routes
+    self.options.each do |option|
+      self.sub_routes(option)
+    end
     self.save
   end
+
 
   def start?
     self.waypoints.each do |waypoint|
