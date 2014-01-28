@@ -8,7 +8,7 @@ class Route < ActiveRecord::Base
     start_time = self.departure_time
     self.sub_routes.each do |sub_route|
       total += sub_route.to_mins
-      start_time += total * 60 
+      start_time += total * 60
     end
     total
   end
