@@ -1,8 +1,8 @@
 class Trip < ActiveRecord::Base
-	attr_accessible :name, :waypoints_attributes
+	attr_accessible :name, :waypoints_attributes, :departure_time
   has_many :trip_waypoints, inverse_of: :waypoint
   has_many :waypoints, :through => :trip_waypoints
-  has_many :sub_routes
+  has_many :routes
 
   accepts_nested_attributes_for :trip_waypoints
   accepts_nested_attributes_for :waypoints
@@ -19,11 +19,9 @@ class Trip < ActiveRecord::Base
   def pairs(way)
     way.unshift(self.start)
     way.push(self.end)
-    array = []
     (way.size - 1).times do |i|
-      array << [way[i], way[i+1]]
+      Sub_Route.new.create(:origin_waypoint_id => way[i].id, :destination_waypoint_id => way[i+1].id)
     end
-    array
   end
 
   def ways
