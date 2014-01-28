@@ -11,7 +11,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140124165128) do
+ActiveRecord::Schema.define(:version => 20140128152404) do
+
+  create_table "routes", :force => true do |t|
+    t.integer "total_time"
+    t.boolean "best"
+  end
 
   create_table "sub_routes", :force => true do |t|
     t.string  "origin_waypoint_id"
@@ -26,8 +31,7 @@ ActiveRecord::Schema.define(:version => 20140124165128) do
   end
 
   create_table "trips", :force => true do |t|
-    t.string  "name"
-    t.integer "total_time"
+    t.string "name"
   end
 
   create_table "waypoints", :force => true do |t|
