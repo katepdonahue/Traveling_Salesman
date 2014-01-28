@@ -17,7 +17,7 @@ class Trip < ActiveRecord::Base
     mutable.permutation.map(&:push)
   end
 
-  def sub_routes(way)
+  def populate_sub_routes(way)
     new_route = Route.new
     way.unshift(self.start)
     way.push(self.end)
@@ -28,11 +28,12 @@ class Trip < ActiveRecord::Base
     self.routes.build(new_route)
   end
 
-  def routes
+  def populate_routes
     self.options.each do |option|
-      self.sub_routes(option)
+      self.populate_sub_routes(option)
     end
     self.save
+    self.routes
   end
 
 
@@ -76,16 +77,18 @@ class Trip < ActiveRecord::Base
   end
 
   def best_route
-    return self.ways.first if self.ways.count == 1
-    best_way = self.routes.first
-    best = self.total_time(best_way)
-    self.ways.each do |way|
-      if self.total_time(way) < best
-        best = self.total_time(way)
-        best_way = way
+    best_route = self.populate_routes.first
+    best_time = self.routes.first.total_time
+    # Routes.minimum(:total_time) => returns the route obj with shortest time
+    self.routes.each do |route| # is there a way to get the smallest time directly from the total_time column?
+      if route.total_time < best_time
+        best_time = route.total_time
+        best_route = route
       end
     end
-    best_way
+    best_route
+    # best_route.best = true
+    # self.routes.each { |route| route.delete if best_route.best != true }
   end
 
 
