@@ -13,4 +13,8 @@ class Route < ActiveRecord::Base
     total
   end
 
+  def request
+    self.sub_routes.each { |sub_route| sub_route.request_directions }
+  end
+
 end
