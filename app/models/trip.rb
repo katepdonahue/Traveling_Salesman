@@ -18,14 +18,13 @@ class Trip < ActiveRecord::Base
   end
 
   def populate_sub_routes(way)
-    new_route = Route.new
+    new_route = Route.create(:departure_time=>self.departure_time, :trip_id=>self.id)
     way.unshift(self.start)
     way.push(self.end)
     (way.size - 1).times do |i|
       sub_route = {:origin_waypoint_id => way[i].id, :destination_waypoint_id => way[i+1].id}
       new_route.sub_routes.build(sub_route)
     end
-    new_route.trip_id = self.id
   end
 
   def populate_routes
@@ -33,7 +32,6 @@ class Trip < ActiveRecord::Base
       self.populate_sub_routes(option)
     end
     self.save
-    self.routes
   end
 
 
@@ -77,7 +75,8 @@ class Trip < ActiveRecord::Base
   end
 
   def best_route
-    best_route = self.populate_routes.first
+    self.populate_routes
+    best_route = self.routes.first
     best_time = self.routes.first.total_time
     # Routes.minimum(:total_time) => returns the route obj with shortest time
     self.routes.each do |route| # is there a way to get the smallest time directly from the total_time column?
