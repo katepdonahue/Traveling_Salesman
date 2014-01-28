@@ -7,22 +7,6 @@ class Trip < ActiveRecord::Base
   accepts_nested_attributes_for :trip_waypoints
   accepts_nested_attributes_for :waypoints
 
-  def time(pair, start_time)
-    sleep(0.75)
-    trip_origin = pair[0].address.gsub(" ", "%20")
-    trip_destination = pair[1].address.gsub(" ", "%20")
-    file = HTTParty.get("https://maps.googleapis.com/maps/api/directions/json?origin=#{trip_origin}&destination=#{trip_destination}&sensor=false&departure_time=#{start_time}&mode=driving")
-    #Time.to_i gives Unix time
-    file["routes"][0]["legs"][0]["duration"]["text"]
-  end
-
-  def to_mins(pair, start_time)
-    duration = self.time(pair, start_time)
-    match = /((?<hours>\d*)\shours?)?\s?((?<mins>\d*)\smins?)?/.match(duration)
-    hours = match[:hours] || 0
-    mins = match[:mins] || 0
-    hours.to_i * 60 + mins.to_i
-  end
 
   def options
     mutable = []
