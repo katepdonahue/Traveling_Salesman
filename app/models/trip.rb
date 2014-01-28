@@ -2,21 +2,22 @@ class Trip < ActiveRecord::Base
 	attr_accessible :name, :waypoints_attributes
   has_many :trip_waypoints, inverse_of: :waypoint
   has_many :waypoints, :through => :trip_waypoints
+  has_many :sub_routes
 
   accepts_nested_attributes_for :trip_waypoints
   accepts_nested_attributes_for :waypoints
 
-  def time(pair)
-    sleep(1)
+  def time(pair, start_time)
+    sleep(0.75)
     trip_origin = pair[0].address.gsub(" ", "%20")
     trip_destination = pair[1].address.gsub(" ", "%20")
-    file = HTTParty.get("https://maps.googleapis.com/maps/api/directions/json?origin=#{trip_origin}&destination=#{trip_destination}&sensor=false&departure_time=#{Time.now.to_i}&mode=driving")
+    file = HTTParty.get("https://maps.googleapis.com/maps/api/directions/json?origin=#{trip_origin}&destination=#{trip_destination}&sensor=false&departure_time=#{start_time}&mode=driving")
     #Time.to_i gives Unix time
     file["routes"][0]["legs"][0]["duration"]["text"]
   end
 
-  def to_mins(pair)
-    duration = self.time(pair)
+  def to_mins(pair, start_time)
+    duration = self.time(pair, start_time)
     match = /((?<hours>\d*)\shours?)?\s?((?<mins>\d*)\smins?)?/.match(duration)
     hours = match[:hours] || 0
     mins = match[:mins] || 0
@@ -81,13 +82,16 @@ class Trip < ActiveRecord::Base
 
   def total_time(way)
     total_time = 0
+    start_time = Time.now.to_i
     way.each do |pair|
-      total_time += self.to_mins(pair)
+      total_time += self.to_mins(pair, start_time)
+      start_time += total_time * 60 # that converts total_time to unix
     end
     total_time
   end
 
   def best_route
+    return self.ways.first if self.ways.count == 1
     best_way = self.ways.first
     best = self.total_time(best_way)
     self.ways.each do |way|
