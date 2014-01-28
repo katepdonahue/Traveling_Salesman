@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(:version => 20140128170913) do
 
   create_table "trips", :force => true do |t|
     t.string  "name"
+    t.integer "total_time"
     t.integer "departure_time"
   end
 
