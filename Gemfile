@@ -8,6 +8,7 @@ gem 'rails', '3.2.15'
 gem 'haml'
 gem 'haml-rails'
 gem 'nested_form'
+gem 'dotiw'
 
 group :development, :test do
   gem 'sqlite3'

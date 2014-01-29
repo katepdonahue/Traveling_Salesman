@@ -19,7 +19,7 @@ class Route < ActiveRecord::Base
     self.sub_routes.each do |sub_route|
       total_mins += sub_route.duration_in_mins
     end
-    strf_mins(total_mins)
+    total_mins * 60
   end
 
   def strf_mins(mins)
@@ -33,6 +33,10 @@ class Route < ActiveRecord::Base
     else
       "#{mins} mins"
     end
+  end
+
+  def jon_strf_mins
+
   end
 
 end
