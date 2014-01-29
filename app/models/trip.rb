@@ -52,7 +52,7 @@ class Trip < ActiveRecord::Base
 
   def best_route
     best_time = Route.where(:trip_id=>self.id).minimum(:arrival_time)
-    Route.where(:trip_id=>self.id).find_by_total_time(best_time)
+    Route.where(:trip_id=>self.id).find_by_arrival_time(best_time)
   end
 
 
