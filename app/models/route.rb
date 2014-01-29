@@ -14,7 +14,12 @@ class Route < ActiveRecord::Base
   end
 
   def request
-    self.sub_routes.each { |sub_route| sub_route.request_directions }
+    sub_route_departure_time = self.departure_time
+    self.sub_routes.each do |sub_route|
+      sleep(0.75)
+      sub_route.request_directions(sub_route_departure_time)
+      sub_route_departure_time += sub_route.duration_in_mins
+    end
   end
 
 end

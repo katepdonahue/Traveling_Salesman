@@ -3,19 +3,18 @@ class SubRoute < ActiveRecord::Base
   serialize :google_results, JSON
   belongs_to :route
   
-  def request_directions
-    sleep(0.75)
-    trip_origin = Waypoint.find(self.origin_waypoint_id).address.gsub(" ", "%20")
-    trip_destination = Waypoint.find(self.destination_waypoint_id).address.gsub(" ", "%20")
+  def request_directions(sub_route_departure_time)
+    origin = Waypoint.find(self.origin_waypoint_id).address.gsub(" ", "%20")
+    destination = Waypoint.find(self.destination_waypoint_id).address.gsub(" ", "%20")
     #check to see if the file already exist
-    self.google_results = HTTParty.get("https://maps.googleapis.com/maps/api/directions/json?origin=#{trip_origin}&destination=#{trip_destination}&sensor=false&departure_time=#{self.departure_time}&mode=driving")
+    self.google_results = HTTParty.get("https://maps.googleapis.com/maps/api/directions/json?origin=#{origin}&destination=#{destination}&sensor=false&departure_time=#{sub_route_departure_time}&mode=driving")
   end
 
   def duration
     self.google_results["routes"][0]["legs"][0]["duration"]["text"]
   end
 
-  def to_mins
+  def duration_in_mins
     match = /((?<hours>\d*)\shours?)?\s?((?<mins>\d*)\smins?)?/.match(self.duration)
     hours = match[:hours] || 0
     mins = match[:mins] || 0
