@@ -70,15 +70,16 @@ class Trip < ActiveRecord::Base
   end
 
   def best_route
-    best_route = self.routes.first
-    best_time = self.routes.first.total_time
-    # Routes.minimum(:total_time) => returns the route obj with shortest time
-    self.routes.each do |route| # is there a way to get the smallest time directly from the total_time column?
-      if route.duration < best_time
-        best_time = route.total_time
-        best_route = route
-      end
-    end
+    self.request
+    # best_route = self.routes.first
+    # best_time = self.routes.first.total_time
+    best_route = Route.where(:trip_id=>self.id).minimum(:total_time)
+    # self.routes.each do |route| # is there a way to get the smallest time directly from the total_time column?
+    #   if route.duration < best_time
+    #     best_time = route.total_time
+    #     best_route = route
+    #   end
+    # end
     best_route
     # best_route.best = true
     # self.routes.each { |route| route.delete if best_route.best != true }
