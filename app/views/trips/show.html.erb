@@ -11,6 +11,10 @@
   <% end %>
 </ul>
 <h3>Total Trip Time: <%= distance_of_time(@route.total_time) %></h3>
+<script type="text/javascript">
+  var subResponse = <%= @sub_routes.first.google_results.to_s.html_safe %>;
+  $(document).ready(calcRoute();); 
+</script>
 
 
 

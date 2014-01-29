@@ -4,10 +4,11 @@ class SubRoute < ActiveRecord::Base
   belongs_to :route
   
   def request_directions(sub_route_departure_time)
+    self.departure_time = sub_route_departure_time
     origin = Waypoint.find(self.origin_waypoint_id).address.gsub(" ", "%20")
     destination = Waypoint.find(self.destination_waypoint_id).address.gsub(" ", "%20")
     #check to see if the file already exist
-    self.google_results = HTTParty.get("https://maps.googleapis.com/maps/api/directions/json?origin=#{origin}&destination=#{destination}&sensor=false&departure_time=#{sub_route_departure_time}&mode=driving")
+    self.google_results = HTTParty.get("https://maps.googleapis.com/maps/api/directions/json?origin=#{origin}&destination=#{destination}&sensor=false&departure_time=#{self.departure_time}&mode=transit")
     self.save
   end
 

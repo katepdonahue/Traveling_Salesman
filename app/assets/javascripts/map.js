@@ -44,18 +44,18 @@ function addMarker(address) {
 }
 
 function calcRoute() {
-  var start = document.getElementById('start').value;
-  var end = document.getElementById('end').value;
-  var request = {
-      origin:start,
-      destination:end,
-      travelMode: google.maps.TravelMode.TRANSIT
-  };
-directionsService.route(request, function(response, status) {
-  if (status == google.maps.DirectionsStatus.OK) {
-    directionsDisplay.setDirections(response);
-  }
-});
+//   var start = document.getElementById('start').value;
+//   var end = document.getElementById('end').value;
+//   var request = {
+//       origin:start,
+//       destination:end,
+//       travelMode: google.maps.TravelMode.TRANSIT
+//   };
+// directionsService.route(request, function(response, status) {
+//   if (status == google.maps.DirectionsStatus.OK) {
+    directionsDisplay.setDirections(subResponse);
+//   }
+// });
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
