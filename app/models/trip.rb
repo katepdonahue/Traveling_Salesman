@@ -26,6 +26,7 @@ class Trip < ActiveRecord::Base
       sub_route = {:origin_waypoint_id => way[i].id, :destination_waypoint_id => way[i+1].id}
       new_route.sub_routes.build(sub_route)
     end
+    new_route.save
   end
 
   def populate_routes
@@ -67,7 +68,7 @@ class Trip < ActiveRecord::Base
 
   def request
     self.populate_routes
-    self.routes.each { |route| route.request }
+    self.routes.each { |route| route.route_request }
   end
 
   def best_route
