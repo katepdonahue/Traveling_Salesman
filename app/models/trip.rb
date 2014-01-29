@@ -7,6 +7,7 @@ class Trip < ActiveRecord::Base
 
   accepts_nested_attributes_for :trip_waypoints
   accepts_nested_attributes_for :waypoints
+  accepts_nested_attributes_for :routes
 
 
   def options
