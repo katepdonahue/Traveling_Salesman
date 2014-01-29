@@ -15,11 +15,15 @@ class Route < ActiveRecord::Base
   end
 
   def total_time
-    total_time = 0
+    total_mins = 0
     self.sub_routes.each do |sub_route|
-      total_time += sub_route.duration_in_mins
+      total_mins += sub_route.duration_in_mins
     end
-    total_time
+    total_mins
+  end
+
+  def strf_mins(mins)
+
   end
 
 end
