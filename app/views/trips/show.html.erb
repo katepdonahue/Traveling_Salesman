@@ -1,3 +1,16 @@
 <%= render 'map' %>
+<ul>
+  <% @sub_routes.each do |sub_route| %>
+    <li>
+      <%= (Waypoint.find(sub_route.origin_waypoint_id)).address %>
+      <br>
+      <%= (Waypoint.find(sub_route.destination_waypoint_id)).address %>
+      <br>
+      <%= sub_route.duration %>
+    </li>
+  <% end %>
+</ul>
+<h3>Total Trip Time: <%= @route.total_time %></h3>
+
 
 

@@ -1,5 +1,5 @@
 class Route < ActiveRecord::Base
-  attr_accessible :total_time, :departure_time, :trip_id, :sub_routes, :sub_routes_attributes, :best
+  attr_accessible :arrival_time, :departure_time, :trip_id, :sub_routes, :sub_routes_attributes, :best
   has_many :sub_routes
   belongs_to :trip
 
@@ -10,8 +10,13 @@ class Route < ActiveRecord::Base
       sub_route.request_directions(sub_route_departure_time)
       sub_route_departure_time += (sub_route.duration_in_mins * 60)
     end
-    self.total_time = sub_route_departure_time
+    self.arrival_time = sub_route_departure_time
     self.save
+  end
+
+  def total_time
+    time = Time.at(self.arrival_time - self.departure_time)
+    time.strftime('%l hours %M minutes')
   end
 
 end

@@ -8,6 +8,7 @@ class SubRoute < ActiveRecord::Base
     destination = Waypoint.find(self.destination_waypoint_id).address.gsub(" ", "%20")
     #check to see if the file already exist
     self.google_results = HTTParty.get("https://maps.googleapis.com/maps/api/directions/json?origin=#{origin}&destination=#{destination}&sensor=false&departure_time=#{sub_route_departure_time}&mode=driving")
+    self.save
   end
 
   def duration
