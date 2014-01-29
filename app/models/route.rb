@@ -22,19 +22,4 @@ class Route < ActiveRecord::Base
     total_mins * 60
   end
 
-  def strf_mins(mins)
-    hours = 0
-    until mins < 60
-      hours += 1
-      mins - 60
-    end
-    hours>1 ? h="#{hours} hours " : hours>0 ? h="#{hours} hour " : h=""
-    mins>1 ? m="#{mins} mins " : mins>0 ? m="#{mins} min " : h=""
-    h + m
-  end
-
-  def jon_strf_mins
-
-  end
-
 end
