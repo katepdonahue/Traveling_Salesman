@@ -11,13 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140128170913) do
+ActiveRecord::Schema.define(:version => 20140129171839) do
 
   create_table "routes", :force => true do |t|
     t.integer "departure_time"
-    t.integer "total_time"
     t.boolean "best"
     t.integer "trip_id"
+    t.integer "arrival_time"
   end
 
   create_table "sub_routes", :force => true do |t|
