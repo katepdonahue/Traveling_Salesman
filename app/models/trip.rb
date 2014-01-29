@@ -37,33 +37,14 @@ class Trip < ActiveRecord::Base
   end
 
 
-  def start?
-    self.waypoints.each do |waypoint|
-      return true if waypoint.name == "Start"
-    end
-  end
 
   def start
-    if self.start?
-      self.waypoints.each do |waypoint|
-        return waypoint if waypoint.name == "Start"
-      end
-    end
+    self.waypoints.find_by_name("Start")
   end
 
-
-  def end?
-    self.waypoints.each do |waypoint|
-      return true if waypoint.name == "End"
-    end
-  end
 
   def end
-    if self.end?
-      self.waypoints.each do |waypoint|
-        return waypoint if waypoint.name == "End"
-      end
-    end
+    self.waypoints.find_by_name("End")
   end
 
   def request
