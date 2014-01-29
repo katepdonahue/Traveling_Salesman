@@ -28,11 +28,9 @@ class Route < ActiveRecord::Base
       hours += 1
       mins - 60
     end
-    if hours > 0
-      "#{hours} hours #{mins} mins"
-    else
-      "#{mins} mins"
-    end
+    hours>1 ? h="#{hours} hours " : hours>0 ? h="#{hours} hour " : h=""
+    mins>1 ? m="#{mins} mins " : mins>0 ? m="#{mins} min " : h=""
+    h + m
   end
 
   def jon_strf_mins
