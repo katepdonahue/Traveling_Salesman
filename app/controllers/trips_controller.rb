@@ -20,7 +20,11 @@ class TripsController < ApplicationController
   def show
     @trip = Trip.find(params[:id])
     @route = @trip.best_route
-    @sub_routes = @route.sub_routes
+    @sub_route = @route.sub_routes.first
+    respond_to do |format|
+      format.html
+      format.json {render json: @sub_route.google_results}
+    end
   end
 
 end
