@@ -36,8 +36,6 @@ class Trip < ActiveRecord::Base
     self.save
   end
 
-
-
   def start
     self.waypoints.find_by_name("Start")
   end

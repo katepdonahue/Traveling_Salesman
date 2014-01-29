@@ -1,13 +1,3 @@
 <%= render 'map' %>
-<ul>
-  <% @trip.best_route.each do |pair| %>
-    <li>
-      <% pair.each do |point| %>
-        <%= point.address %>
-        <br/>
-      <% end %>
-      <%= @trip.time(pair, Time.now.to_i) %>
-    </li>
-  <% end %>
-</ul>
+
 

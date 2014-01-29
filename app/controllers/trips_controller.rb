@@ -11,9 +11,7 @@ class TripsController < ApplicationController
 
   def create
     @trip = Trip.new(params[:trip])
-    # params[:trip][:waypoints].each do |hash|
-    #   @trip.waypoints.build(:name => hash[:name], :latitude => hash[:latitude], :longitude => hash[:longitude])
-    # end
+    @trip.best_route
     @trip.save
     redirect_to "/trips/#{@trip.id}" #with ajax don't do this cuz will send get request to show right after
     # render :nothing => true 
