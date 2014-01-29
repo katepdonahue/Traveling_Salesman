@@ -53,7 +53,7 @@ function calcRoute() {
 //   };
 // directionsService.route(request, function(response, status) {
 //   if (status == google.maps.DirectionsStatus.OK) {
-    directionsDisplay.setDirections(subResponse);
+    directionsDisplay.setDirections(subResponse.responseJSON);
 //   }
 // });
 }

@@ -1,19 +1,11 @@
 <%= render 'map' %>
-<ul>
-  <% @sub_routes.each do |sub_route| %>
-    <li>
-      <%= (Waypoint.find(sub_route.origin_waypoint_id)).address %>
-      <br>
-      <%= (Waypoint.find(sub_route.destination_waypoint_id)).address %>
-      <br>
-      <%= sub_route.duration %>
-    </li>
-  <% end %>
-</ul>
+
 <h3>Total Trip Time: <%= distance_of_time(@route.total_time) %></h3>
 <script type="text/javascript">
-  var subResponse = <%= @sub_routes.first.google_results.to_s.html_safe %>;
-  $(document).ready(calcRoute();); 
+  var subResponse = $.getJSON("http://localhost:3000/api/sub_routes/13.json", function(json) {
+    console.log(json["routes"][0]["legs"][0]["duration"]["text"]);
+    });
+  $(document).ready(calcRoute());
 </script>
 
 
