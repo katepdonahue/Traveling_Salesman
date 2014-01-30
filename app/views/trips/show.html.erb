@@ -3,9 +3,9 @@
 <h3>Total Trip Time: <%= distance_of_time(@route.total_time) %></h3>
 <script type="text/javascript">
   var subResponse = $.getJSON("http://localhost:3000/api/sub_routes/13.json", function(json) {
-    console.log(json["routes"][0]["legs"][0]["duration"]["text"]);
+    calcRoute(json);
     });
-  $(document).ready(calcRoute());
+  $(document).ready();
 </script>
 
 

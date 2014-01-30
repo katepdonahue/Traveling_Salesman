@@ -43,7 +43,7 @@ function addMarker(address) {
   // };
 }
 
-function calcRoute() {
+function calcRoute(json) {
 //   var start = document.getElementById('start').value;
 //   var end = document.getElementById('end').value;
 //   var request = {
@@ -53,7 +53,7 @@ function calcRoute() {
 //   };
 // directionsService.route(request, function(response, status) {
 //   if (status == google.maps.DirectionsStatus.OK) {
-    directionsDisplay.setDirections(subResponse.responseJSON);
+    directionsDisplay.setDirections(json);
 //   }
 // });
 }
