@@ -24,15 +24,12 @@ class SubRoute < ActiveRecord::Base
   end
 
   def format_sub_r_request
-    hash = {}
     start = Waypoint.find(self.origin_waypoint_id).address
     ending = Waypoint.find(self.destination_waypoint_id).address
-    mode = Trip.find(start.trip_id).travel_mode
-    hash[:origin] = start
-    hash[:destination] = ending
-    hash[:travelMode] = google.maps.TravelMode.mode # how to make mode not a string? could just hard code as google.maps.TravelMode.TRANSIT
-    hash[:departureTime] = # this comes from a method...
-    hash
+    { origin: start,
+      destination: ending,
+      travelMode: "google.maps.TravelMode.TRANSIT",
+      departureTime: Time.now.to_i }
     # save all formatted subroutes in json file at http://localhost:3000/api/trip/:id.json
   end
 
