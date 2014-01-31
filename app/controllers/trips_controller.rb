@@ -27,5 +27,11 @@ class TripsController < ApplicationController
     end
   end
 
+
+  def whatever
+    @whatever = {:trips => 1}.to_json
+    render :json => @whatever
+  end
+
 end
 
