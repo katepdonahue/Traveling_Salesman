@@ -23,6 +23,17 @@ class SubRoute < ActiveRecord::Base
     hours.to_i * 60 + mins.to_i
   end
 
+  def format_sub_r_request
+    hash = {}
+    start = Waypoint.find(self.origin_waypoint_id).address
+    ending = Waypoint.find(self.destination_waypoint_id).address
+    hash[:origin] = start
+    hash[:destination] = ending
+    hash[:travelMode] = Trip.find(start.trip_id).travel_mode
+    hash[:departureTime] =
+    hash
+  end
+
 
 
 end
