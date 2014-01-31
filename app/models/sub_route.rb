@@ -23,6 +23,16 @@ class SubRoute < ActiveRecord::Base
     hours.to_i * 60 + mins.to_i
   end
 
+  def format_sub_r_request
+    start = Waypoint.find(self.origin_waypoint_id).address
+    ending = Waypoint.find(self.destination_waypoint_id).address
+    { origin: start,
+      destination: ending,
+      travelMode: "google.maps.TravelMode.TRANSIT",
+      departureTime: Time.now.to_i }
+    # save all formatted subroutes in json file at http://localhost:3000/api/trip/:id.json
+  end
+
 
 
 end

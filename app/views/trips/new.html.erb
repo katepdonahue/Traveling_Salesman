@@ -1,2 +1,10 @@
 <%= render 'map' %>
 <%= render 'form' %>
+<script>
+  $("input[type='submit']").on("click", function (e) {
+    e.preventDefault();
+    $.get("/whatever", function(form_request) {
+      console.log(form_request);
+    });
+  });
+</script>
