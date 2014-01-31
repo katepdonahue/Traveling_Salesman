@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140129171839) do
+ActiveRecord::Schema.define(:version => 20140131155006) do
 
   create_table "routes", :force => true do |t|
     t.integer "departure_time"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(:version => 20140129171839) do
   create_table "trips", :force => true do |t|
     t.string  "name"
     t.integer "departure_time", :default => 1390952041
+    t.string  "travel_mode",    :default => "TRANSIT"
   end
 
   create_table "waypoints", :force => true do |t|
