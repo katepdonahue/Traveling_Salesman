@@ -17,15 +17,15 @@ class TripsController < ApplicationController
   #   # render :nothing => true 
   # end
 
-  def show
-    @trip = Trip.find(params[:id])
-    @route = @trip.best_route
-    @sub_route = @route.sub_routes.first
-    respond_to do |format|
-      format.html
-      format.json {render json: @sub_route.google_results}
-    end
-  end
+  # def show
+  #   @trip = Trip.find(params[:id])
+  #   @route = @trip.best_route
+  #   @sub_route = @route.sub_routes.first
+  #   respond_to do |format|
+  #     format.html
+  #     format.json {render json: @sub_route.google_results}
+  #   end
+  # end
 
 
   def calculate
