@@ -1,8 +1,14 @@
 <%= render 'map' %>
 
 <script type="text/javascript">
+  var data = new Object();
   <% @data.each do |route_id, route_hash| %>
-
+  var routeId = <%= route_id %>;
+    data[String(routeId)] = new Object();
+    <% route_hash.each do |sub_route_id, s_r_data_hash| %>
+      var subRouteId = <%= sub_route_id %>;
+      data[String(routeId)][String(subRouteId)] = <%= s_r_data_hash %>;
+    <% end %>
   <% end %>
 </script>
 
