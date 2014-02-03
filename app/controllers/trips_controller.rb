@@ -31,11 +31,11 @@ class TripsController < ApplicationController
   def calculate
     trip = Trip.new
     trip.populate_routes
-    @hash = []
+    @data = []
     trip.routes.each do |route|
-      @hash[route.id] = []
+      @data[route.id] = []
       route.sub_routes.each do |sub_route|
-        @hash[route.id][sub_route.id] = sub_route.format_sub_r_request
+        @data[route.id][sub_route.id] = sub_route.format_sub_r_request
       end
     end
     render "/trips/#{@trip.id}"
