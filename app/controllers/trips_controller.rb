@@ -30,8 +30,14 @@ class TripsController < ApplicationController
 
   def calculate
     trip = Trip.new
-    subroute = trip.routes.first.sub_routes.first
-    @whatever = subroute.format_sub_r_request.to_json
+    trip.populate_routes
+    @hash = []
+    trip.routes.each do |route|
+      @hash[route.id] = []
+      route.sub_routes.each do |sub_route|
+        @hash[route.id][sub_route.id] = sub_route.format_sub_r_request
+      end
+    end
     render "/trips/#{@trip.id}"
   end
 
