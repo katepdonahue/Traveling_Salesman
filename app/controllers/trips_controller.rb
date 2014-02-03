@@ -28,7 +28,7 @@ class TripsController < ApplicationController
   end
 
 
-  def whatever
+  def calculate
     trip = Trip.find(165)
     subroute = trip.routes.first.sub_routes.first
     @whatever = subroute.format_sub_r_request.to_json
