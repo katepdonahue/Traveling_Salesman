@@ -8,13 +8,12 @@
     data[String(routeId)] = new Object();
     <% route_hash.each do |sub_route_id, address_arr| %>
       var subRouteId = <%= sub_route_id %>;
-      var subRouteHash = data[String(routeId)][String(subRouteId)];
-      subRouteHash = new Object();
-      subRouteHash[:origin] = <%= address_arr.first %>;
-      subRouteHash[:destination] = <%= address_arr.last %>;
-      subRouteHash[:departureTime] = Date.now();
-      subRouteHash[:travelMode] = google.maps.TravelMode.TRANSIT;
-
+      var subRouteHash = new Object();
+      subRouteHash["origin"] = "<%= address_arr.first %>";
+      subRouteHash["destination"] = "<%= address_arr.last %>";
+      subRouteHash["departureTime"] = Date.now();
+      subRouteHash["travelMode"] = google.maps.TravelMode.TRANSIT;
+      data[String(routeId)][String(subRouteId)] = subRouteHash;
     <% end %>
   <% end %>
 </script>

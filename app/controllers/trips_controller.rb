@@ -37,6 +37,7 @@ class TripsController < ApplicationController
         origin = Waypoint.find(sub_route.origin_waypoint_id).address
         destination = Waypoint.find(sub_route.destination_waypoint_id).address
         @data[route.id][sub_route.id] = [origin, destination]
+        # sub_route.format_sub_r_request.to_json
       end
     end
   end
