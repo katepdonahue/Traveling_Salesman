@@ -9,13 +9,12 @@ class TripsController < ApplicationController
     @trip.waypoints.build
   end
 
-  # def create
-  #   @trip = Trip.new(params[:trip])
-  #   @trip.save
-  #   @trip.request
-  #   redirect_to "/trips/#{@trip.id}" #with ajax don't do this cuz will send get request to show right after
-  #   # render :nothing => true 
-  # end
+  def create
+    @trip = Trip.new(params[:trip])
+    @trip.save
+    redirect_to "/trips/#{@trip.id}" #with ajax don't do this cuz will send get request to show right after
+    # render :nothing => true 
+  end
 
   # def show
   #   @trip = Trip.find(params[:id])
@@ -28,17 +27,18 @@ class TripsController < ApplicationController
   # end
 
 
-  def calculate
-    trip = Trip.new
+  def show
+    trip = Trip.find(params[:id])
     trip.populate_routes
-    @data = []
+    @data = {}
     trip.routes.each do |route|
-      @data[route.id] = []
+      @data[route.id] = {}
       route.sub_routes.each do |sub_route|
-        @data[route.id][sub_route.id] = sub_route.format_sub_r_request
+        origin = Waypoint.find(sub_route.origin_waypoint_id).address
+        destination = Waypoint.find(sub_route.destination_waypoint_id).address
+        @data[route.id][sub_route.id] = [origin, destination]
       end
     end
-    render "/trips/#{@trip.id}"
   end
 
 end

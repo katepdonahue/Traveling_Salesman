@@ -4,11 +4,17 @@
 <script type="text/javascript">
   var data = new Object();
   <% @data.each do |route_id, route_hash| %>
-  var routeId = <%= route_id %>;
+    var routeId = <%= route_id %>;
     data[String(routeId)] = new Object();
-    <% route_hash.each do |sub_route_id, s_r_data_hash| %>
+    <% route_hash.each do |sub_route_id, address_arr| %>
       var subRouteId = <%= sub_route_id %>;
-      data[String(routeId)][String(subRouteId)] = <%= s_r_data_hash %>;
+      var subRouteHash = data[String(routeId)][String(subRouteId)];
+      subRouteHash = new Object();
+      subRouteHash[:origin] = <%= address_arr.first %>;
+      subRouteHash[:destination] = <%= address_arr.last %>;
+      subRouteHash[:departureTime] = Date.now();
+      subRouteHash[:travelMode] = google.maps.TravelMode.TRANSIT;
+
     <% end %>
   <% end %>
 </script>

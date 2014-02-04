@@ -6,11 +6,10 @@ TravelingSalesman::Application.routes.draw do
 
   get '/test' => "trips#index"
 
-  # post '/trips' => "trips#create"
+  post '/trips' => "trips#create"
   get '/trips/new' => "trips#new", as: 'new_trip'
   get '/trips/:id' => "trips#show", as: 'trip'
 
-  post '/trips/calculate' => "trips#calculate", as: 'trips'
 
 
   # get '/trips' => 'trips#index', as: 'trip_path'

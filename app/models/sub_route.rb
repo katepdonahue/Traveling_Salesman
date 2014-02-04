@@ -29,7 +29,7 @@ class SubRoute < ActiveRecord::Base
     { origin: start,
       destination: ending,
       travelMode: "google.maps.TravelMode.TRANSIT",
-      departureTime: Date.now } # needs to be a date object, why????
+      departureTime: Time.now.to_i } # needs to be a date object, why????
     # save all formatted subroutes in json file at http://localhost:3000/api/trip/:id.json
   end
 
