@@ -35,7 +35,8 @@ ActiveRecord::Schema.define(:version => 20140131155006) do
 
   create_table "trips", :force => true do |t|
     t.string  "name"
-    t.integer "departure_time", :default => 1390952041
+    t.integer "total_time"
+    t.integer "departure_time", :default => 1391011353
     t.string  "travel_mode",    :default => "TRANSIT"
   end
 
