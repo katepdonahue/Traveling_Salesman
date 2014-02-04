@@ -44,11 +44,17 @@ function addMarker(address) {
 }
 
 function calcRoute(request) {
-directionsService.route(request, function(response, status) {
-  if (status == google.maps.DirectionsStatus.OK) {
-    directionsDisplay.setDirections();
-  }
-});
+  var return_value = null;
+  directionsService.route(request, function(response, status) {
+    debugger
+    if (status == google.maps.DirectionsStatus.OK) {
+      debugger
+      return_value = response;
+    } else {
+      return_value = "else case"
+    }
+  });
+  return return_value;
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
