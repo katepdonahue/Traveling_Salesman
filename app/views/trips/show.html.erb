@@ -11,8 +11,8 @@
       var subRouteHash = new Object();
       subRouteHash["origin"] = "<%= address_arr.first %>";
       subRouteHash["destination"] = "<%= address_arr.last %>";
-      subRouteHash["departureTime"] = Date.now();
-      subRouteHash["travelMode"] = google.maps.TravelMode.TRANSIT;
+      // subRouteHash["departureTime"] = 1391530628316;
+      subRouteHash["travelMode"] = google.maps.TravelMode.DRIVING;
       data[String(routeId)][String(subRouteId)] = subRouteHash;
     <% end %>
   <% end %>

@@ -4,14 +4,14 @@ var map;
 
 function initialize() {
   geocoder = new google.maps.Geocoder();
-  // directionsDisplay = new google.maps.DirectionsRenderer();
+  directionsDisplay = new google.maps.DirectionsRenderer();
   var chicago = new google.maps.LatLng(41.850033, -87.6500523);
   var mapOptions = {
     zoom:7,
     center: chicago
   }
   map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-  // directionsDisplay.setMap(map);
+  directionsDisplay.setMap(map);
 }
 
 function addMarker(address) {
@@ -43,19 +43,12 @@ function addMarker(address) {
   // };
 }
 
-function calcRoute(json) {
-//   var start = document.getElementById('start').value;
-//   var end = document.getElementById('end').value;
-//   var request = {
-//       origin:start,
-//       destination:end,
-//       travelMode: google.maps.TravelMode.TRANSIT
-//   };
-// directionsService.route(request, function(response, status) {
-//   if (status == google.maps.DirectionsStatus.OK) {
-    directionsDisplay.setDirections(json);
-//   }
-// });
+function calcRoute(request) {
+directionsService.route(request, function(response, status) {
+  if (status == google.maps.DirectionsStatus.OK) {
+    directionsDisplay.setDirections();
+  }
+});
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
