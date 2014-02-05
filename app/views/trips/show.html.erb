@@ -17,13 +17,20 @@
 
       directionsService.route(subRouteHash, function(response, status) {
         if (status == google.maps.DirectionsStatus.OK) {
-          data1 = response;
+          data[String(routeId)][String(subRouteId)] = response;
         }
       });
 
     <% end %>
   <% end %>
-  directionsDisplay.setDirections(data1);
+  // this works if you copy paste it into the console.
+  // async problem
+  jQuery.each(data, function(key, val) {
+    jQuery.each(val, function(subrk, subrv) {
+      directionsDisplay.setDirections(subrv);
+    });
+  });
+    
 </script>
 
 
