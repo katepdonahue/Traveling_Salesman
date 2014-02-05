@@ -1,4 +1,4 @@
-var response6 = _xdc_._ahfnj8 && _xdc_._ahfnj8( {
+var response6 = {
    "routes" : [
       {
          "bounds" : {
@@ -354,4 +354,3 @@ var response6 = _xdc_._ahfnj8 && _xdc_._ahfnj8( {
    ],
    "status" : "OK"
 }
- )

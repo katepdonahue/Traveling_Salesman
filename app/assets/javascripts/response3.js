@@ -1,4 +1,4 @@
-var response3 = _xdc_._1r5yde && _xdc_._1r5yde( {
+var response3 = {
    "routes" : [
       {
          "bounds" : {
@@ -188,4 +188,3 @@ var response3 = _xdc_._1r5yde && _xdc_._1r5yde( {
    ],
    "status" : "OK"
 }
- )

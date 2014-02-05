@@ -1,4 +1,4 @@
-var response4 = _xdc_._9nive7 && _xdc_._9nive7( {
+var response4 = {
    "routes" : [
       {
          "bounds" : {
@@ -213,4 +213,3 @@ var response4 = _xdc_._9nive7 && _xdc_._9nive7( {
    ],
    "status" : "OK"
 }
- )

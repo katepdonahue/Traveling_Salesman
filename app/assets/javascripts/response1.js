@@ -1,4 +1,4 @@
-var response1 = _xdc_._gdoule && _xdc_._gdoule( {
+var response1 = {
    "routes" : [
       {
          "bounds" : {
@@ -212,4 +212,3 @@ var response1 = _xdc_._gdoule && _xdc_._gdoule( {
    ],
    "status" : "OK"
 }
- )
