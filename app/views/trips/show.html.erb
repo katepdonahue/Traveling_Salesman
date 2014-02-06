@@ -5,10 +5,10 @@
   var data = new Object();
   var data1 = null;
   <% @data.each do |route_id, route_hash| %>
-    var routeId = String(<%= route_id %>);
+    var routeId = <%= route_id %>;
     data[routeId] = new Object();
     <% route_hash.each do |sub_route_id, address_arr| %>
-      var subRouteId = String(<%= sub_route_id %>);
+      var subRouteId = <%= sub_route_id %>;
       var subRouteHash = new Object();
       subRouteHash["origin"] = "<%= address_arr.first %>";
       subRouteHash["destination"] = "<%= address_arr.last %>";
