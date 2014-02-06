@@ -11,6 +11,7 @@ class TripsController < ApplicationController
 
   def create
     @trip = Trip.new(params[:trip])
+    trip.populate_routes
     @trip.save
     redirect_to "/trips/#{@trip.id}" #with ajax don't do this cuz will send get request to show right after
     # render :nothing => true 
@@ -29,7 +30,6 @@ class TripsController < ApplicationController
 
   def show
     trip = Trip.find(params[:id])
-    trip.populate_routes
     @data = {}
     trip.routes.each do |route|
       @data[route.id] = {}
