@@ -2,6 +2,10 @@
 <%= render 'map' %>
 
 <script type="text/javascript">
+
+  var cache = new Object();
+  var globalResponse = null;
+
   function buildHash(callback) {
     var data = new Object();
     <% @data.each do |route_id, route_hash| %>
@@ -20,14 +24,13 @@
       <% end %>
     <% end %>
 
-    var cache = new Object();
     jQuery.each(data, function(routeId, routeHash) {
-      cache[routeId] = routeHash;
+      cache[routeId] = new Object();
       jQuery.each(routeHash, function(subRouteId, subRouteHash) {
         directionsService.route(subRouteHash, function(response, status) {
           if (status == google.maps.DirectionsStatus.OK) {
-            cache[routeId][subRouteId] = response;
-            console.log(cache[routeId][subRouteId]);
+            globalResponse = response;
+            cache[routeId][subRouteId] = globalResponse;
           }
         });
       });
@@ -35,8 +38,8 @@
     callback(cache);
   }
 
-  function getResponse(cache) {
-    jQuery.each(cache, function(key, val) {
+  function getResponse(hash) {
+    jQuery.each(hash, function(key, val) {
       jQuery.each(val, function(subrk, subrv) {
         directionsDisplay.setDirections(subrv);
       });
