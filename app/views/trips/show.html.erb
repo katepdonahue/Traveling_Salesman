@@ -2,36 +2,48 @@
 <%= render 'map' %>
 
 <script type="text/javascript">
-  var data = new Object();
-  var data1 = null;
-  <% @data.each do |route_id, route_hash| %>
-    var routeId = <%= route_id %>;
-    data[routeId] = new Object();
-    <% route_hash.each do |sub_route_id, address_arr| %>
-      var subRouteId = <%= sub_route_id %>;
-      var subRouteHash = new Object();
-      subRouteHash["origin"] = "<%= address_arr.first %>";
-      subRouteHash["destination"] = "<%= address_arr.last %>";
-      // subRouteHash["departureTime"] = 1391530628316;
-      subRouteHash["travelMode"] = google.maps.TravelMode.DRIVING;
+  function buildHash(callback) {
+    var data = new Object();
+    <% @data.each do |route_id, route_hash| %>
+      var routeId = <%= route_id %>;
+      data[routeId] = new Object();
+      <% route_hash.each do |sub_route_id, address_arr| %>
+        var subRouteId = <%= sub_route_id %>;
+        var subRouteHash = new Object();
+        subRouteHash["origin"] = "<%= address_arr.first %>";
+        subRouteHash["destination"] = "<%= address_arr.last %>";
+        // subRouteHash["departureTime"] = 1391530628316;
+        subRouteHash["travelMode"] = google.maps.TravelMode.DRIVING;
 
-      directionsService.route(subRouteHash, function(response, status) {
-        if (status == google.maps.DirectionsStatus.OK) {
-          data[routeId][subRouteId] = response;
-        }
-      });
+        data[routeId][subRouteId] = subRouteHash;
 
+      <% end %>
     <% end %>
-  <% end %>
-</script>
-<script type="text/javascript">
-  // this works if you copy paste it into the console.
-  // async problem
-  jQuery.each(data, function(key, val) {
-    jQuery.each(val, function(subrk, subrv) {
-      directionsDisplay.setDirections(subrv);
+
+    var cache = new Object();
+    jQuery.each(data, function(routeId, routeHash) {
+      cache[routeId] = routeHash;
+      jQuery.each(routeHash, function(subRouteId, subRouteHash) {
+        directionsService.route(subRouteHash, function(response, status) {
+          if (status == google.maps.DirectionsStatus.OK) {
+            cache[routeId][subRouteId] = response;
+            console.log(cache[routeId][subRouteId]);
+          }
+        });
+      });
     });
-  });
+    callback(cache);
+  }
+
+  function getResponse(cache) {
+    jQuery.each(cache, function(key, val) {
+      jQuery.each(val, function(subrk, subrv) {
+        directionsDisplay.setDirections(subrv);
+      });
+    });
+  }
+
+  buildHash(getResponse);
 </script>
 
 
