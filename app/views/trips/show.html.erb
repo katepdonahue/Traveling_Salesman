@@ -1,5 +1,6 @@
 
 <%= render 'map' %>
+<button class="ajax">Get Best Route</button>
 
 <script type="text/javascript">
 
@@ -47,6 +48,26 @@
   }
 
   buildHash(getResponse);
+</script>
+<script type="text/javascript">
+  function getAjaxHash() {
+    var ajaxHash = new Object(); 
+    jQuery.each(cache, function(routeId, routeHash) {
+      ajaxHash[routeId] = new Object();
+      jQuery.each(routeHash, function(subRouteId, subRouteHash) {
+        ajaxHash[routeId][subRouteId] = cache[routeId][subRouteId]["routes"][0]["legs"][0]["duration"]["text"];
+      });
+    });
+    return ajaxHash;
+  }
+  $(".ajax").on("click", function(){
+    $.post("/trips/ajax",
+      getAjaxHash(),
+      function(response, status){
+        alert("Status:" + status);
+      }
+    );
+  });
 </script>
 
 

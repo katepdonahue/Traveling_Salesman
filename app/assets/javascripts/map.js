@@ -1,9 +1,11 @@
 var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
 var map;
+var geocoder;
 
 function initialize() {
  directionsDisplay = new google.maps.DirectionsRenderer();
+ geocoder = new google.maps.Geocoder();
  var chicago = new google.maps.LatLng(41.850033, -87.6500523);
  var mapOptions = {
    zoom:7,

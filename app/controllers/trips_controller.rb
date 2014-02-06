@@ -18,21 +18,16 @@ class TripsController < ApplicationController
     # render :nothing => true 
   end
 
-  # def show
-  #   @trip = Trip.find(params[:id])
-  #   @route = @trip.best_route
-  #   @sub_route = @route.sub_routes.first
-  #   respond_to do |format|
-  #     format.html
-  #     format.json {render json: @sub_route.google_results}
-  #   end
-  # end
+  def ajax
+    debugger
+    @route = Trip.find(121)
+  end
 
 
   def show
-    trip = Trip.find(params[:id])
+    @trip = Trip.find(params[:id])
     @data = {}
-    trip.routes.each do |route|
+    @trip.routes.each do |route|
       @data[route.id] = {}
       route.sub_routes.each do |sub_route|
         origin = Waypoint.find(sub_route.origin_waypoint_id).address
