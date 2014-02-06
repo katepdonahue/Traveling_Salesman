@@ -21,6 +21,7 @@ class TripsController < ApplicationController
   def ajax
     debugger
     @trip = Trip.find(params.keys.first.to_i)
+    @trip.add_duration(params)
   end
 
 

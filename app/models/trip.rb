@@ -57,5 +57,14 @@ class Trip < ActiveRecord::Base
     route
   end
 
+  def add_duration(hash)
+    hash["#{self.id}"].each do |route_key, sub_route_hash|
+      sub_route_hash.each do |sub_route_key, raw_duration|
+        sub_route = SubRoute.find(sub_route_key.to_i)
+        sub_route.duration = raw_duration
+      end
+    end
+  end
+
 
 end
