@@ -19,10 +19,15 @@ class TripsController < ApplicationController
   end
 
   def ajax
-    debugger
     @trip = Trip.find(params.keys.first.to_i)
     @trip.add_duration(params)
-    @best_route_id = @trip.best_route.id
+    debugger
+    @best_route_key = @trip.best_route.id
+    respond_to do |format|
+      format.json{
+        render :json => @best_route_key.to_json
+      }
+    end
   end
 
 
@@ -35,7 +40,6 @@ class TripsController < ApplicationController
         origin = Waypoint.find(sub_route.origin_waypoint_id).address
         destination = Waypoint.find(sub_route.destination_waypoint_id).address
         @data[route.id][sub_route.id] = [origin, destination]
-        # sub_route.format_sub_r_request.to_json
       end
     end
   end
