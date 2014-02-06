@@ -64,6 +64,7 @@ class Trip < ActiveRecord::Base
         sub_route.duration = raw_duration
       end
     end
+    self.save
   end
 
 
