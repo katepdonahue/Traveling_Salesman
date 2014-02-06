@@ -21,8 +21,7 @@ class TripsController < ApplicationController
   def ajax
     @trip = Trip.find(params.keys.first.to_i)
     @trip.add_duration(params)
-    debugger
-    @best_route_key = @trip.best_route.id
+    @best_route_key = @trip.best_route
     respond_to do |format|
       format.json{
         render :json => @best_route_key.to_json
