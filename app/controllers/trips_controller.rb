@@ -22,6 +22,7 @@ class TripsController < ApplicationController
     debugger
     @trip = Trip.find(params.keys.first.to_i)
     @trip.add_duration(params)
+    @best_route_id = @trip.best_route.id
   end
 
 

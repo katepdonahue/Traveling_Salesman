@@ -51,10 +51,14 @@ class Trip < ActiveRecord::Base
   end
 
   def best_route
-    best_time = Route.where(:trip_id=>self.id).minimum(:arrival_time)
-    route = Route.where(:trip_id=>self.id).find_by_arrival_time(best_time)
-    route.best = true
-    route
+    best_time = self.routes.first.total_time
+    self.routes.each do |route| 
+      if route.total_time < best_time
+        best_time = route.total_time
+        best_route = route
+      end
+    end
+    best_route
   end
 
   def add_duration(hash)
