@@ -50,12 +50,14 @@
   buildHash(getResponse);
 </script>
 <script type="text/javascript">
+  var tripId = <%=@trip.id%>;
   function getAjaxHash() {
-    var ajaxHash = new Object(); 
+    var ajaxHash = new Object();
+    ajaxHash[tripId] = new Object(); 
     jQuery.each(cache, function(routeId, routeHash) {
-      ajaxHash[routeId] = new Object();
+      ajaxHash[tripId][routeId] = new Object();
       jQuery.each(routeHash, function(subRouteId, subRouteHash) {
-        ajaxHash[routeId][subRouteId] = cache[routeId][subRouteId]["routes"][0]["legs"][0]["duration"]["text"];
+        ajaxHash[tripId][routeId][subRouteId] = cache[routeId][subRouteId]["routes"][0]["legs"][0]["duration"]["text"];
       });
     });
     return ajaxHash;
