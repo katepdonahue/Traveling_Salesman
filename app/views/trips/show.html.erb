@@ -7,7 +7,7 @@
   var cache = new Object();
   var globalResponse = null;
 
-  function buildHash(callback) {
+  function buildHash() {
     var data = new Object();
     <% @data.each do |route_id, route_hash| %>
       var routeId = <%= route_id %>;
@@ -36,23 +36,11 @@
         });
       });
     });
-    callback(cache);
   }
 
-  function getResponse(hash) {
-    jQuery.each(hash, function(key, val) {
-      jQuery.each(val, function(subrk, subrv) {
-        directionsDisplay.setDirections(subrv);
-      });
-    });
-  }
-
-  buildHash(getResponse);
-</script>
-<script type="text/javascript">
+  var ajaxHash = new Object();
   var tripId = <%=@trip.id%>;
   function getAjaxHash() {
-    var ajaxHash = new Object();
     ajaxHash[tripId] = new Object(); 
     jQuery.each(cache, function(routeId, routeHash) {
       ajaxHash[tripId][routeId] = new Object();
@@ -62,23 +50,47 @@
     });
     return ajaxHash;
   }
+  var data = getAjaxHash();
   var bestRouteId;
-  $(".ajax").on("click", function(){
+ function showRoutes(){
     var directionsDisplay = [];
     var i = 0;
+    // $.ajax({
+    //   type: 'POST',
+    //   url: "/trips/ajax",
+    //   data: data,
+    //   beforeSend: function (){
+    //     buildHash();
+    //   },
+    //   success: function () {
+    //     console.log("hello");
+    //      bestRouteId = response["id"];
+    //     $.each(cache[bestRouteId], function(subRouteId, googleResponse){
+    //       directionsDisplay[i] = new google.maps.DirectionsRenderer();
+    //       directionsDisplay[i].setMap(map);
+    //       directionsDisplay[i].setDirections(googleResponse);  
+    //       i++;
+    //     });
+    //   },
+    //   async: false
+    // });
     $.post("/trips/ajax",
       getAjaxHash(),
       function(response, status){
         bestRouteId = response["id"];
+        $.each(cache[bestRouteId], function(subRouteId, googleResponse){
+          directionsDisplay[i] = new google.maps.DirectionsRenderer();
+          directionsDisplay[i].setMap(map);
+          directionsDisplay[i].setDirections(googleResponse);  
+          i++;
+        });
       }
     );
-    $.each(cache[bestRouteId], function(subRouteId, googleResponse){
-      directionsDisplay[i] = new google.maps.DirectionsRenderer();
-      directionsDisplay[i].setMap(map);
-      directionsDisplay[i].setDirections(googleResponse);  
-      i++;
-    });
-  });
+  }
+  buildHash();
+  setTimeout(function(){
+    showRoutes();
+  }, 500);
 </script>
 
 
