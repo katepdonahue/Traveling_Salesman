@@ -62,17 +62,21 @@
     });
     return ajaxHash;
   }
-  var routeId;
+  var bestRouteId;
   $(".ajax").on("click", function(){
+    var directionsDisplay = [];
+    var i = 0;
     $.post("/trips/ajax",
       getAjaxHash(),
       function(response, status){
-        debugger;
         bestRouteId = response["id"];
       }
     );
-    $.each(cache, function(routeId, subRoutesHash){
-      
+    $.each(cache[bestRouteId], function(subRouteId, googleResponse){
+      directionsDisplay[i] = new google.maps.DirectionsRenderer();
+      directionsDisplay[i].setMap(map);
+      directionsDisplay[i].setDirections(googleResponse);  
+      i++;
     });
   });
 </script>
