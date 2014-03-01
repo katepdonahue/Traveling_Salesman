@@ -62,13 +62,18 @@
     });
     return ajaxHash;
   }
+  var routeId;
   $(".ajax").on("click", function(){
     $.post("/trips/ajax",
       getAjaxHash(),
       function(response, status){
-        alert("Response:" + response);
+        debugger;
+        bestRouteId = response["id"];
       }
     );
+    $.each(cache, function(routeId, subRoutesHash){
+      
+    });
   });
 </script>
 

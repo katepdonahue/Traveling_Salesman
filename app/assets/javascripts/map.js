@@ -5,6 +5,8 @@ var geocoder;
 
 function initialize() {
  directionsDisplay = new google.maps.DirectionsRenderer();
+ directionsDisplay1 = new google.maps.DirectionsRenderer();
+ directionsDisplay2 = new google.maps.DirectionsRenderer();
  geocoder = new google.maps.Geocoder();
  var chicago = new google.maps.LatLng(41.850033, -87.6500523);
  var mapOptions = {
