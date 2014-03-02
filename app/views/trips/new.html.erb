@@ -1,5 +1,20 @@
 <%= render 'map' %>
-<%= render 'form' %>
-<script>
-  
-</script>
+<div>
+  <%= nested_form_for @trip do |f| %>
+    <%= f.fields_for :waypoints do |waypoint_form| %>
+      <%= waypoint_form.hidden_field :name, :value => "Start" %>
+      <%= waypoint_form.text_field :address, :class => "waypoints", :onchange => "addMarker($(this).val());", :placeholder => "Start"%>
+    <% end %>
+    <%= f.fields_for :waypoints do |waypoint_form| %>
+      <%= waypoint_form.hidden_field :name, :value => "End" %>
+      <%= waypoint_form.text_field :address, :class => "waypoints", :onchange => "addMarker($(this).val());", :placeholder => "End" %>
+    <% end %>
+    <%= f.fields_for :waypoints do |waypoint_form| %>
+      <%= waypoint_form.text_field :address, :class => "waypoints", :onchange => "addMarker($(this).val());" %>
+        <%= waypoint_form.link_to_remove "-" %>
+    <% end %>
+    <%= f.link_to_add "+", :waypoints %>
+    <br>
+    <%= f.submit %>
+  <% end %>
+</div>

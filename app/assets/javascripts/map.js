@@ -1,4 +1,7 @@
-console.log("I am in map.js");
+
+$(document).ready(function() {
+  $("input[type=submit]").before($(".fields")[1]);
+});
 
 var directionsService = new google.maps.DirectionsService();
 var map;
@@ -12,7 +15,6 @@ function initialize() {
    center: newYork
  }
  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
- console.log("I have set the map");
 }
 
 function addMarker(address) {

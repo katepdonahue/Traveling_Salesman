@@ -12,12 +12,16 @@
       <%= waypoint_form.text_field :address, :class => "waypoints", :onchange => "addMarker($(this).val());" %>
         <%= waypoint_form.link_to_remove "-" %>
     <% end %>
-    <div class="add_button">
-      <%= f.link_to_add "+", :waypoints %>
-    </div>
+    <%= f.link_to_add "+", :waypoints %>
+    <br>
     <%= f.submit %>
   <% end %>
 </div>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $(".button").before($(".fields")[1]);
+  });
+</script>
 
 
 <!-- add after @trip ", remote: true" -->
