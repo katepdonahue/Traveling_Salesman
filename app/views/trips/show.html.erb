@@ -26,16 +26,14 @@
 
     jQuery.each(data, function(routeId, routeHash) {
       cache[routeId] = new Object();
-      
+      var i = 0;
       jQuery.each(routeHash, function(subRouteId, subRouteHash) {
-
-        directionsService.route(subRouteHash, function(response, status) {
-          if (status == google.maps.DirectionsStatus.OK) {
-            globalResponse = response;
-            cache[routeId][subRouteId] = globalResponse;
-          }
-        });
-
+          directionsService.route(subRouteHash, function(response, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+              globalResponse = response;
+              cache[routeId][subRouteId] = globalResponse;
+            }
+          });
       });
     });
   }
@@ -94,7 +92,7 @@
   setTimeout(function(){
     showRoutes();
   }, 1000);
+  array = new Array();
+
 </script>
-
-
 

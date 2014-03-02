@@ -10,6 +10,7 @@ class TripsController < ApplicationController
   end
 
   def create
+    debugger
     @trip = Trip.new(params[:trip])
     @trip.save
     @trip.populate_routes

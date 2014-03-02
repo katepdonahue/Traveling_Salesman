@@ -1,5 +1,12 @@
 <%= render 'map' %>
 <%= render 'form' %>
 <script>
-  
+  $(".button").on("click", function(e){
+    e.preventDefault();
+    var data = $("form").serialize();
+    console.log(data);
+    $.post("/trips", data, function(response, status){
+      console.log(response);
+    });
+  });
 </script>

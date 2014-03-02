@@ -17,3 +17,4 @@
 //= require gmaps/google
 //= require jquery_nested_form
 //= require ./map.js
+//= require ./underscore.js

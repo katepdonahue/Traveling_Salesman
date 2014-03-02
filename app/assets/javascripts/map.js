@@ -1,4 +1,5 @@
 var directionsService = new google.maps.DirectionsService();
+var directionsService2 = new google.maps.DirectionsService();
 var map;
 var geocoder;
 
