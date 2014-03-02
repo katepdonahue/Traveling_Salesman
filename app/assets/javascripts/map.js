@@ -1,3 +1,5 @@
+console.log("I am in map.js");
+
 var directionsService = new google.maps.DirectionsService();
 var map;
 var geocoder;
@@ -10,6 +12,7 @@ function initialize() {
    center: newYork
  }
  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+ console.log("I have set the map");
 }
 
 function addMarker(address) {

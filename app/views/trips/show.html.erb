@@ -4,16 +4,16 @@
 
 <script type="text/javascript">
 
-  $(window).on( "load", function() {
+  $(window).load(function() {
     
     function doEverything(callback) {
+
       
       // this builds the hash from the data from controller
       function buildData() {
-        var localData = new Object();
         <% @data.each do |route_id, route_hash| %>
           var routeId = <%= route_id %>;
-          localData[routeId] = new Object();
+          data[routeId] = new Object();
           <% route_hash.each do |sub_route_id, address_arr| %>
             var subRouteId = <%= sub_route_id %>;
             var subRouteHash = new Object();
@@ -22,28 +22,25 @@
             // subRouteHash["departureTime"] = 1391530628316;
             subRouteHash["travelMode"] = google.maps.TravelMode.DRIVING;
 
-            localData[routeId][subRouteId] = subRouteHash;
+            data[routeId][subRouteId] = subRouteHash;
 
           <% end %>
         <% end %>
-        return localData;
       }
       // builds cache which gets filled with the google responses
-      function buildCache(localData) {
-        var localCache = new Object();
+      function buildCache() {
         var globalResponse = null;
-        jQuery.each(localData, function(routeId, routeHash) {
-          localCache[routeId] = new Object();
+        jQuery.each(data, function(routeId, routeHash) {
+          cache[routeId] = new Object();
           jQuery.each(routeHash, function(subRouteId, subRouteHash) {
             directionsService.route(subRouteHash, function(response, status) {
-              // if (status == google.maps.DirectionsStatus.OK) {
+              if (status == google.maps.DirectionsStatus.OK) {
                 globalResponse = response;
-                localCache[routeId][subRouteId] = globalResponse;
-              // }
+                cache[routeId][subRouteId] = globalResponse;
+              }
             });
           });
         });
-        return localCache;
       }
       
       // this sets each subroute hash to have a value of the "raw duration"
@@ -59,18 +56,24 @@
         });
         return ajaxHash;
       }
+
       // initialize variables
-      var data = buildData();       // <-- used in showRoutes
-      var cache = buildCache(data); // <-- used in showRoutes
+      var data = new Object;        // <-- used in showRoutes
+      var cache = new Object;       // <-- used in showRoutes
       var bestRouteId;              // <-- set in showRoutes
       var directionsDisplay = [];   // <-- filled in showRoutes
       var i = 0;                    // <-- incremented in showRoutes
+
+      // get data and cache
+      buildData();       
+      buildCache();
+      
       // calls showRoutes passing in the stuff it needs
-      callback(getAjaxHash, i, directionsDisplay, bestRouteId, cache);
+      callback(getAjaxHash);
     }
 
 
-    function showRoutes(myFunction, i, directionsDisplay, bestRouteId, cache) {
+    function showRoutes(myFunction) {
       
       // gives ajax hash to server, server finds best route and passes back route id
       $.post("/trips/ajax",
@@ -88,10 +91,12 @@
           });
         }
       );
-      
+
     }
 
-    doEverything(showRoutes);
+    setTimeout(function() {
+      doEverything(showRoutes);
+      }, 2000);
 
   });
 </script>
