@@ -16,16 +16,6 @@
       padding: 0px;
       font-family: "Courier", sans-serif;
     }
-    #panel {
-      position: absolute;
-      top: 5px;
-      left: 50%;
-      margin-left: -180px;
-      z-index: 5;
-      background-color: #fff;
-      padding: 5px;
-      border: 1px solid #999;
-    }
     form {
       z-index: 6;
       position: fixed;
@@ -41,14 +31,20 @@
       color: gray;
       font-weight: bold;
     }
-    .add_button {
-      position: relative;
-      left: 187px;
-    }
     input[type=submit] {
       background-color: white;
       border: 1px solid gray;
       border-radius: 5px;
+    }
+    #directions-panel {
+      width: 300px;
+      height: 100%;
+      position: absolute;
+      right: 5px;
+      z-index: 6;
+      background-color: white;
+      padding: 10px;
+      overflow: auto;
     }
   </style>
     
