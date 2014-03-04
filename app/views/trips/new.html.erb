@@ -19,12 +19,22 @@
   <% end %>
 </div>
 <script type="text/javascript">
+  function cleanData(funkyHash) {
+    jQuery.each(funkyHash, function(routeId, routeHash) {
+      jQuery.each(routeHash, function(subRouteId, subRouteHash) {
+        subRouteHash["transitOptions"]["departureTime"] = new Date(Date.now());
+        subRouteHash["travelMode"] = google.maps.TravelMode.DRIVING;
+      });
+    });
+    return funkyHash;
+  }
+
   $(document).ready(function(){
     $("input[type=submit]").on("click", function(e){
       e.preventDefault();
       var data = $(".new_trip").serialize();
       $.post("/trips", data, function(response, status){
-        console.log(response);
+        console.log(cleanData(response));
       });
     });
   });
