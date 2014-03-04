@@ -3,7 +3,7 @@
 
 <script type="text/javascript">
 
-
+  var tryAgain = nil;
   var cache = new Object();
   var globalResponse = null;
   var data = new Object();
@@ -23,26 +23,7 @@
       <% end %>
     <% end %>
 
-    jQuery.each(data, function(routeId, routeHash, tryAgain) {
-      cache[routeId] = new Object();
-      var i = 0;
-      jQuery.each(routeHash, function(subRouteId, subRouteHash) {
-          directionsService.route(subRouteHash, function(response, status) {
-            if (status == google.maps.DirectionsStatus.OK) {
-              globalResponse = response;
-              cache[routeId][subRouteId] = globalResponse;
-            } 
-            else if (status == "OVER_QUERY_LIMIT") {
-              tryAgain();
-            }
-            else {
-              throw new Error(status);
-            }
-          });
-      });
-    });
-
-    var tryAgain = function () {
+    function tryAgain () {
       setTimeout(function(){
         console.log("Retrying");
         directionsService.route(subRouteHash, function(response, status) {
@@ -56,9 +37,30 @@
           else {
             throw new Error(status);
           }
+        });
       }, 2000);
     }
+
+    jQuery.each(data, function(routeId, routeHash, tryAgain) {
+      cache[routeId] = new Object();
+      var i = 0;
+      jQuery.each(routeHash, function(subRouteId, subRouteHash) {
+        directionsService.route(subRouteHash, function(response, status) {
+          if (status == google.maps.DirectionsStatus.OK) {
+            globalResponse = response;
+            cache[routeId][subRouteId] = globalResponse;
+          } 
+          else if (status == "OVER_QUERY_LIMIT") {
+            tryAgain();
+          }
+          else {
+            throw new Error(status);
+          }
+        });
+      });
+    });
   }
+
 
   var ajaxHash = new Object();
   var tripId = <%=@trip.id%>;
