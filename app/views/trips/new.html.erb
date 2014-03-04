@@ -19,11 +19,15 @@
   <% end %>
 </div>
 <script type="text/javascript">
+  var tripId;
   function cleanData(funkyHash) {
-    jQuery.each(funkyHash, function(routeId, routeHash) {
-      jQuery.each(routeHash, function(subRouteId, subRouteHash) {
-        subRouteHash["transitOptions"]["departureTime"] = new Date(Date.now());
-        subRouteHash["travelMode"] = google.maps.TravelMode.DRIVING;
+    jQuery.each(funkyHash, function(localTripId, tripHash) {
+      tripId = localTripId;
+      jQuery.each(tripHash, function(routeId, routeHash) {
+        jQuery.each(routeHash, function(subRouteId, subRouteHash) {
+          subRouteHash["transitOptions"]["departureTime"] = new Date(Date.now());
+          subRouteHash["travelMode"] = google.maps.TravelMode.DRIVING;
+        });
       });
     });
     return funkyHash;

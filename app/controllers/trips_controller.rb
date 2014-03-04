@@ -10,17 +10,18 @@ class TripsController < ApplicationController
   end
 
   def create
-    @trip = Trip.new(params[:trip])
-    @trip.save
-    @trip.populate_routes
-    @trip.save
+    trip = Trip.new(params[:trip])
+    trip.save
+    trip.populate_routes
+    trip.save
     @data = {}
-    @trip.routes.each do |route|
-      @data[route.id] = {}
+    @data[trip.id] = {}
+    trip.routes.each do |route|
+      @data[trip.id][route.id] = {}
       route.sub_routes.each do |sub_route|
         origin_address = Waypoint.find(sub_route.origin_waypoint_id).address
         destination_address = Waypoint.find(sub_route.destination_waypoint_id).address
-        @data[route.id][sub_route.id] = {"origin" => origin_address, 
+        @data[trip.id][route.id][sub_route.id] = {"origin" => origin_address, 
                                          "destination" => destination_address,
                                          "transitOptions" => {:departureTime => Date.today},
                                          "travelMode" => ""}
