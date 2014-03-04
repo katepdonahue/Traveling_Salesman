@@ -56,7 +56,8 @@
       } 
       else if (status == "OVER_QUERY_LIMIT") {
         setTimeout(function() {
-          console.log("Retrying...")
+          console.log("Retrying...");
+          console.log(Date.now());
           sendRequest(routeId, subRouteId, subRouteHash);
         }, 2000);
       }
@@ -79,7 +80,6 @@
 
   function postResponses() {
     var directionsDisplay = [];
-    var i = 0;
     $.post("/trips/ajax", ajaxHash, function(bestRouteId, status){
       $("#directions-panel").show();
       $.each(cache[bestRouteId], function(subRouteId, googleResponse){
