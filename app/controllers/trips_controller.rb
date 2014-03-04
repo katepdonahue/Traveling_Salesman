@@ -15,21 +15,21 @@ class TripsController < ApplicationController
     @trip.save
     @trip.populate_routes
     @trip.save
-    @routes = []
-    @trip.routes.each do |route|
-      @routes << route
-      @data[route.id] = {}
-      route.sub_routes.each do |sub_route|
-        origin = Waypoint.find(sub_route.origin_waypoint_id).address
-        destination = Waypoint.find(sub_route.destination_waypoint_id).address
-        @data[route.id][sub_route.id] = [origin, destination]
-      end
-    end
-    # respond_to do |format|
-    #   format.json {render "trips/show.json.rabl"}
+    # @data = {}
+    # @trip.routes.each do |route|
+    #   @data[route.id] = {}
+    #   route.sub_routes.each do |sub_route|
+    #     origin = Waypoint.find(sub_route.origin_waypoint_id).address
+    #     destination = Waypoint.find(sub_route.destination_waypoint_id).address
+    #     @data[route.id][sub_route.id] = [origin, destination]
+    #   end
     # end
+    @routes = @trip.routes
+    respond_to do |format|
+      format.json {render :json => @data}
+    end
     # render :json => @data
-    redirect_to "/trips/#{@trip.id}" #with ajax don't do this cuz will send get request to show right after
+    # redirect_to "/trips/#{@trip.id}" #with ajax don't do this cuz will send get request to show right after
     # render :nothing => true 
   end
 

@@ -1,4 +1,4 @@
-collection @routes, 
+collection @routes
 child :sub_routes do
 
   node do |sub_route|

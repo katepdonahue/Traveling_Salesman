@@ -18,4 +18,14 @@
     <%= f.submit %>
   <% end %>
 </div>
-
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("input[type=submit]").on("click", function(e){
+      e.preventDefault();
+      var data = $(".new_trip").serialize();
+      $.post("/trips", data, function(response, status){
+        console.log(response);
+      });
+    });
+  });
+</script>

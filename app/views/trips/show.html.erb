@@ -2,8 +2,6 @@
 <%= render 'map' %>
 
 <script type="text/javascript">
-
-  var tryAgain = nil;
   var cache = new Object();
   var globalResponse = null;
   var data = new Object();
@@ -17,7 +15,7 @@
         subRouteHash["origin"] = "<%= address_arr.first %>";
         subRouteHash["destination"] = "<%= address_arr.last %>";
         subRouteHash["transitOptions"]= {"departureTime" : new Date(Date.now())};
-        subRouteHash["travelMode"] = google.maps.TravelMode.TRANSIT;
+        subRouteHash["travelMode"] = google.maps.TravelMode.DRIVING;
 
         data[routeId][subRouteId] = subRouteHash;
       <% end %>
@@ -37,7 +35,7 @@
           cache[routeId][subRouteId] = globalResponse;
         } 
         else if (status == "OVER_QUERY_LIMIT") {
-          tryAgain();
+          // tryAgain();
         }
         else {
           throw new Error(status);
