@@ -28,7 +28,7 @@
       jQuery.each(tripHash, function(routeId, routeHash) {
         jQuery.each(routeHash, function(subRouteId, subRouteHash) {
           subRouteHash["transitOptions"]["departureTime"] = new Date(Date.now());
-          subRouteHash["travelMode"] = google.maps.TravelMode.DRIVING;
+          subRouteHash["travelMode"] = google.maps.TravelMode.TRANSIT;
         });
       });
     });
@@ -55,7 +55,10 @@
         cache[routeId][subRouteId] = response;
       } 
       else if (status == "OVER_QUERY_LIMIT") {
-        // tryAgain();
+        setTimeout(function() {
+          console.log("Retrying...")
+          sendRequest(routeId, subRouteId, subRouteHash);
+        }, 2000);
       }
       else {
         throw new Error(status);
