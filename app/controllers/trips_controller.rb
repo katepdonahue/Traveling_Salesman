@@ -10,7 +10,7 @@ class TripsController < ApplicationController
   end
 
   def create
-    # debugger
+    debugger
     @trip = Trip.new(params[:trip])
     @trip.save
     @trip.populate_routes
@@ -26,7 +26,7 @@ class TripsController < ApplicationController
     # end
     @routes = @trip.routes
     respond_to do |format|
-      format.json {render :json => @data}
+      format.json {render "trips/show.json.rabl"}
     end
     # render :json => @data
     # redirect_to "/trips/#{@trip.id}" #with ajax don't do this cuz will send get request to show right after
