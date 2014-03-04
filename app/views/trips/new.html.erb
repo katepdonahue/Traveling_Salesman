@@ -20,6 +20,8 @@
 </div>
 <script type="text/javascript">
   var tripId;
+  var cache = new Object();
+  var ajaxHash = new Object();
   function cleanData(funkyHash) {
     jQuery.each(funkyHash, function(localTripId, tripHash) {
       tripId = localTripId;
@@ -33,12 +35,55 @@
     return funkyHash;
   }
 
+  function cacheResponses(data, callback){
+    jQuery.each(data, function(localTripId, tripHash){
+      jQuery.each(tripHash, function(routeId, routeHash){
+        cache[routeId] = new Object();
+        jQuery.each(routeHash, function(subRouteId, subRouteHash){
+          sendRequest(routeId, subRouteId, subRouteHash);
+        });
+      });
+    });
+    callback(postResponses);
+  }
+
+  function sendRequest(routeId, subRouteId, subRouteHash) {
+    directionsService.route(subRouteHash, function(response, status) {
+      if (status == google.maps.DirectionsStatus.OK) {
+        cache[routeId][subRouteId] = response;
+      } 
+      else if (status == "OVER_QUERY_LIMIT") {
+        // tryAgain();
+      }
+      else {
+        throw new Error(status);
+      }
+    });
+  }
+
+  function getAjaxHash(callback) {
+    ajaxHash[tripId] = new Object(); 
+    jQuery.each(cache, function(routeId, routeHash) {
+      ajaxHash[tripId][routeId] = new Object();
+      jQuery.each(routeHash, function(subRouteId, subRouteHash) {
+        ajaxHash[tripId][routeId][subRouteId] = cache[routeId][subRouteId]["routes"][0]["legs"][0]["duration"]["text"];
+      });
+    });
+    callback();
+  }
+
+  function postResponses() {
+    $.post("/trips/ajax", ajaxHash, function(response, status){
+          console.log(response);
+    });
+  }
+
   $(document).ready(function(){
     $("input[type=submit]").on("click", function(e){
       e.preventDefault();
       var data = $(".new_trip").serialize();
       $.post("/trips", data, function(response, status){
-        console.log(cleanData(response));
+        cacheResponses(cleanData(response), getAjaxHash);
       });
     });
   });
