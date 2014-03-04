@@ -12,7 +12,7 @@ function initialize() {
  geocoder = new google.maps.Geocoder();
  var newYork = new google.maps.LatLng(41.850033, -73.6500523);
  var mapOptions = {
-   zoom:7,
+   zoom:14,
    center: newYork
  }
  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
