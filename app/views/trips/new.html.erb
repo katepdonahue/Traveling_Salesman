@@ -44,7 +44,9 @@
         });
       });
     });
-    callback(postResponses);
+    setTimeout(function(){
+      callback(postResponses);
+    }, 2000);
   }
 
   function sendRequest(routeId, subRouteId, subRouteHash) {
