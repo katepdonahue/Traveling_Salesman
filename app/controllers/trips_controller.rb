@@ -36,7 +36,7 @@ class TripsController < ApplicationController
     @best_route_key = @trip.best_route
     respond_to do |format|
       format.json{
-        render :json => @best_route_key.to_json
+        render :json => @best_route_key.id.to_json
       }
     end
   end
