@@ -76,6 +76,8 @@ GEM
     multi_xml (0.5.5)
     nested_form (0.3.2)
     polyglot (0.3.3)
+    rabl (0.9.3)
+      activesupport (>= 2.3.14)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -149,6 +151,7 @@ DEPENDENCIES
   httparty
   jquery-rails
   nested_form
+  rabl
   rails (= 3.2.15)
   rspec-rails (= 2.11.0)
   sass-rails (~> 3.2.3)

@@ -6,9 +6,8 @@
 
   var cache = new Object();
   var globalResponse = null;
-  var array = new Array()
+  var data = new Object();
   function buildHash() {
-    var data = new Object();
     <% @data.each do |route_id, route_hash| %>
       var routeId = <%= route_id %>;
       data[routeId] = new Object();
@@ -18,13 +17,13 @@
         subRouteHash["origin"] = "<%= address_arr.first %>";
         subRouteHash["destination"] = "<%= address_arr.last %>";
         subRouteHash["transitOptions"]= {"departureTime" : new Date(Date.now())};
-        subRouteHash["travelMode"] = google.maps.TravelMode.DRIVING;
+        subRouteHash["travelMode"] = google.maps.TravelMode.TRANSIT;
 
         data[routeId][subRouteId] = subRouteHash;
       <% end %>
     <% end %>
 
-    jQuery.each(data, function(routeId, routeHash) {
+    jQuery.each(data, function(routeId, routeHash, tryAgain) {
       cache[routeId] = new Object();
       var i = 0;
       jQuery.each(routeHash, function(subRouteId, subRouteHash) {
@@ -32,10 +31,33 @@
             if (status == google.maps.DirectionsStatus.OK) {
               globalResponse = response;
               cache[routeId][subRouteId] = globalResponse;
+            } 
+            else if (status == "OVER_QUERY_LIMIT") {
+              tryAgain();
+            }
+            else {
+              throw new Error(status);
             }
           });
       });
     });
+
+    var tryAgain = function () {
+      setTimeout(function(){
+        console.log("Retrying");
+        directionsService.route(subRouteHash, function(response, status) {
+          if (status == google.maps.DirectionsStatus.OK) {
+            globalResponse = response;
+            cache[routeId][subRouteId] = globalResponse;
+          } 
+          else if (status == "OVER_QUERY_LIMIT") {
+            tryAgain();
+          }
+          else {
+            throw new Error(status);
+          }
+      }, 2000);
+    }
   }
 
   var ajaxHash = new Object();
@@ -50,7 +72,7 @@
     });
     return ajaxHash;
   }
-  var data = getAjaxHash();
+  // var data = getAjaxHash();
   var bestRouteId;
  function showRoutes(){
     var directionsDisplay = [];
