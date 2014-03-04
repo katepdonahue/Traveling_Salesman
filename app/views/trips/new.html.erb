@@ -78,6 +78,7 @@
     var directionsDisplay = [];
     var i = 0;
     $.post("/trips/ajax", ajaxHash, function(bestRouteId, status){
+      $("#directions-panel").show();
       $.each(cache[bestRouteId], function(subRouteId, googleResponse){
         directionsDisplay[i] = new google.maps.DirectionsRenderer();
         directionsDisplay[i].setMap(map);
@@ -89,6 +90,7 @@
   }
 
   $(document).ready(function(){
+    $("#directions-panel").hide();
     $("input[type=submit]").on("click", function(e){
       e.preventDefault();
       var data = $(".new_trip").serialize();
