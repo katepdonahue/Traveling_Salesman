@@ -1,3 +1,8 @@
+
+$(document).ready(function() {
+  $("input[type=submit]").before($(".fields")[1]);
+});
+
 var directionsService = new google.maps.DirectionsService();
 var directionsService2 = new google.maps.DirectionsService();
 var map;
