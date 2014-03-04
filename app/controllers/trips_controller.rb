@@ -18,9 +18,12 @@ class TripsController < ApplicationController
     @trip.routes.each do |route|
       @data[route.id] = {}
       route.sub_routes.each do |sub_route|
-        origin = Waypoint.find(sub_route.origin_waypoint_id).address
-        destination = Waypoint.find(sub_route.destination_waypoint_id).address
-        @data[route.id][sub_route.id] = [origin, destination]
+        origin_address = Waypoint.find(sub_route.origin_waypoint_id).address
+        destination_address = Waypoint.find(sub_route.destination_waypoint_id).address
+        @data[route.id][sub_route.id] = {:origin => origin_address, 
+                                         :destination => destination_address,
+                                         :transitOptions => {:departureTime => Date.today},
+                                         :travelMode => ""}
       end
     end
     # @routes = @trip.routes
