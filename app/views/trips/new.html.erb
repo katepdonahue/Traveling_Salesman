@@ -19,8 +19,12 @@
   <% end %>
 </div>
 <script type="text/javascript">
+  var i = 1;
+  var iPrev = 0;
   var tripId;
+  var index = 0;
   var cache = new Object();
+  var cacheArray = new Array();
   var ajaxHash = new Object();
   function cleanData(funkyHash) {
     jQuery.each(funkyHash, function(localTripId, tripHash) {
@@ -29,6 +33,7 @@
         jQuery.each(routeHash, function(subRouteId, subRouteHash) {
           subRouteHash["transitOptions"]["departureTime"] = new Date(Date.now());
           subRouteHash["travelMode"] = google.maps.TravelMode.TRANSIT;
+          cacheArray.push(subRouteHash);
         });
       });
     });
@@ -40,31 +45,55 @@
       jQuery.each(tripHash, function(routeId, routeHash){
         cache[routeId] = new Object();
         jQuery.each(routeHash, function(subRouteId, subRouteHash){
-          sendRequest(routeId, subRouteId, subRouteHash);
+          if (iPrev != 0){
+            iPrev++;
+          }
+          sendRequest(routeId, subRouteId, tryAgain);
         });
       });
     });
     setTimeout(function(){
       callback(postResponses);
-    }, 2000);
+    }, 32000);
   }
 
-  function sendRequest(routeId, subRouteId, subRouteHash) {
-    directionsService.route(subRouteHash, function(response, status) {
-      if (status == google.maps.DirectionsStatus.OK) {
-        cache[routeId][subRouteId] = response;
-      } 
-      else if (status == "OVER_QUERY_LIMIT") {
-        setTimeout(function() {
-          console.log("Retrying...");
-          console.log(Date.now());
-          sendRequest(routeId, subRouteId, subRouteHash);
-        }, 2000);
+  var tryAgain = function (routeId, subRouteId, results) {
+    if (results == "OVER_QUERY_LIMIT"){
+      setTimeout(function(){
+        i++;
+        console.log("retrying: "+ results);
+        sendRequest(routeId, subRouteId, tryAgain);
+      }, 2000);
+    }
+    else {
+      console.log("I got a response!");
+      cache[routeId][subRouteId] = results;
+      cacheArray.shift();
+      i++;
+    }
+
+
+  }
+
+  function sendRequest(routeId, subRouteId, callback) {
+    if (i !== iPrev){
+      if (iPrev == 0) {
+        iPrev++;
       }
-      else {
-        throw new Error(status);
-      }
-    });
+      iPrev++;
+      directionsService.route(cacheArray[0], function(response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+          callback(routeId, subRouteId, response);
+        } 
+        else if (status == "OVER_QUERY_LIMIT") {
+          console.log(status + "calling tryAgain");
+          callback(routeId, subRouteId, status);
+        }
+        else {
+          throw new Error(status);
+        }
+      });
+    }
   }
 
   function getAjaxHash(callback) {
@@ -83,11 +112,11 @@
     $.post("/trips/ajax", ajaxHash, function(bestRouteId, status){
       $("#directions-panel").show();
       $.each(cache[bestRouteId], function(subRouteId, googleResponse){
-        directionsDisplay[i] = new google.maps.DirectionsRenderer();
-        directionsDisplay[i].setMap(map);
-        directionsDisplay[i].setDirections(googleResponse);
-        directionsDisplay[i].setPanel(document.getElementById('directions-panel')); 
-        i++;
+        directionsDisplay[index] = new google.maps.DirectionsRenderer();
+        directionsDisplay[index].setMap(map);
+        directionsDisplay[index].setDirections(googleResponse);
+        directionsDisplay[index].setPanel(document.getElementById('directions-panel')); 
+        index++;
       });
     });
   }

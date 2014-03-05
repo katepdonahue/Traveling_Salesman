@@ -31,6 +31,7 @@ class TripsController < ApplicationController
   end
 
   def ajax
+    debugger
     @trip = Trip.find(params.keys.first.to_i)
     @trip.add_duration(params)
     @best_route_key = @trip.best_route
