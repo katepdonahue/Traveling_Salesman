@@ -22,7 +22,10 @@
   var i = 1;
   var iPrev = 0;
   var tripId;
+  var globalRId;
   var index = 0;
+  var global1;
+  var globalResults;
   var cache = new Object();
   var cacheArray = new Array();
   var ajaxHash = new Object();
@@ -37,10 +40,12 @@
         });
       });
     });
+    global1 = funkyHash;
     return funkyHash;
   }
 
   function cacheResponses(data, callback){
+    console.log(data);
     jQuery.each(data, function(localTripId, tripHash){
       jQuery.each(tripHash, function(routeId, routeHash){
         cache[routeId] = new Object();
@@ -72,9 +77,17 @@
     }
     else {
       console.log("I got a response!");
-      console.log(routeId + ": " + subRouteId + ": " + results["routes"][0]["legs"][0]["duration"]["text"]);
+      globalResults = results;
+      jQuery.each(global1, function(localTripId, tripHash) {
+      jQuery.each(tripHash, function(rId, rHash) {
+        globalRId = rId;
+        jQuery.each(rHash, function(sRId, sRHash) {
+          console.log("hello");
+          });
+        });
+      });
       cache[routeId][subRouteId] = results;
-      console.log(i + ": " + iPrev);
+      console.log(results);
       if (iPrev > 12) {
         cacheArray.shift();
       }
@@ -90,6 +103,7 @@
         iPrev++;
       }
       iPrev++;
+      console.log("Sending Request:");
       console.log(cacheArray[0]);
       directionsService.route(cacheArray[0], function(response, status) {
         if (status == google.maps.DirectionsStatus.OK) {
