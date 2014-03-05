@@ -48,6 +48,11 @@
           if (iPrev != 0){
             iPrev++;
           }
+          if (i == 1 && iPrev < 7) {
+            console.log("Inside");
+            cacheArray.shift();
+          }
+          console.log(i + ": " + iPrev);
           sendRequest(routeId, subRouteId, tryAgain);
         });
       });
@@ -67,8 +72,12 @@
     }
     else {
       console.log("I got a response!");
+      console.log(routeId + ": " + subRouteId + ": " + results["routes"][0]["legs"][0]["duration"]["text"]);
       cache[routeId][subRouteId] = results;
-      cacheArray.shift();
+      console.log(i + ": " + iPrev);
+      if (iPrev > 12) {
+        cacheArray.shift();
+      }
       i++;
     }
 
@@ -81,6 +90,7 @@
         iPrev++;
       }
       iPrev++;
+      console.log(cacheArray[0]);
       directionsService.route(cacheArray[0], function(response, status) {
         if (status == google.maps.DirectionsStatus.OK) {
           callback(routeId, subRouteId, response);
