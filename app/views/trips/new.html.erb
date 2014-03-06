@@ -37,25 +37,21 @@
         });
       });
     });
-    global1 = funkyHash;
     return funkyHash;
   }
 
   function cacheResponses(data, callback){
+    var cacheIndex = 0;
     jQuery.each(data, function(localTripId, tripHash){
       jQuery.each(tripHash, function(routeId, routeHash){
         cache[routeId] = new Object();
         jQuery.each(routeHash, function(subRouteId, subRouteHash){
-          return function() {
-            if (iPrev != 0){
+          if (iPrev != 0){
             iPrev++;
-            }
-            if (i == 1 && iPrev < 7) {
-              cacheArray.shift();
-            }
-            console.log("routeID:" + routeId + "subrouteID:" + subRouteId + "just before send request");
-            sendRequest(routeId, subRouteId, tryAgain);
-          }();
+          }
+          sendRequest(routeId, subRouteId, tryAgain,cacheIndex);
+          cacheIndex++;
+          console.log("sentRequest");
         });
       });
     });
@@ -64,53 +60,44 @@
     }, 32000);
   }
 
-  var tryAgain = function (routeIdB, subRouteIdB, results) {
-    console.log("routeID:" + routeIdB + "subrouteID:" + subRouteIdB + "just inside callback")
+  var tryAgain = function (routeId, subRouteId, results,cacheIndex) {
+    console.log("tryAgain");
     if (results == "OVER_QUERY_LIMIT"){
-      console.log("routeID:" + routeIdB + "subrouteID:" + subRouteIdB +"i hit query limit")
       setTimeout(function(){
         i++;
-        sendRequest(routeIdB, subRouteIdB, tryAgain);
+        console.log("retrying: "+ results);
+        sendRequest(routeId, subRouteId, tryAgain,cacheIndex);
       }, 2000);
     }
     else {
       console.log("I got a response!");
-      console.log(routeIdB + ": " + subRouteIdB);
-      cache[routeIdB][subRouteIdB] = results;
-      if (iPrev > 12) {
-        cacheArray.shift();
-      }
-      console.log(results);
+      cache[routeId][subRouteId] = results;
       i++;
     }
 
 
   }
 
-  function sendRequest(routeIdB, subRouteIdB, callback) {
-    console.log("routeID:" + routeIdB + "subrouteID:" + subRouteIdB + "inside send request")
+  function sendRequest(routeId, subRouteId, callback,cacheIndex) {
+    console.log("in send request");
     if (i !== iPrev){
+      console.log("iprev is good");
       if (iPrev == 0) {
         iPrev++;
       }
       iPrev++;
-      return function() {
-        directionsService.route(cacheArray[0], function(response, status) {
-          if (status == google.maps.DirectionsStatus.OK) {
-            console.log("routeID:" + routeIdB + "subrouteID:" + subRouteIdB + "just got response from google before calling try again");
-            console.log(response["routes"][0]["legs"][0]["end_address"]);
-            console.log(response["routes"][0]["legs"][0]["start_address"]);
-            callback(routeIdB, subRouteIdB, response);
-
-          } 
-          else if (status == "OVER_QUERY_LIMIT") {
-            callback(routeIdB, subRouteIdB, status);
-          }
-          else {
-            throw new Error(status);
-          }
-        });
-      }();
+      directionsService.route(cacheArray[cacheIndex], function(response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+          callback(routeId, subRouteId, response,cacheIndex);
+        } 
+        else if (status == "OVER_QUERY_LIMIT") {
+          console.log(status + "calling tryAgain");
+          callback(routeId, subRouteId, status,cacheIndex);
+        }
+        else {
+          throw new Error(status);
+        }
+      });
     }
   }
 
