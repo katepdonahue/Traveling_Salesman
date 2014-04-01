@@ -57,9 +57,13 @@
     });
     setTimeout(function(){
       callback(postResponses);
-      $.each($("#directions-panel")[0], function(i, div){
-        $(div).prepend("<h1>Step" + (i+1) + "</h1>");
+      setTimeout(function(){
+        $.each($("#directions-panel").children(), function(i, div){
+        $(div).prepend("<h1>Step " + (i+1) + "</h1>");
       });
+
+      }, 250);
+      
     }, 32000);
   }
 
@@ -126,6 +130,8 @@
         directionsDisplay[index].setPanel(document.getElementById('directions-panel')); 
         index++;
       });
+      $("#overlay").addClass("hidden");
+      $("#modal").addClass("hidden");
     });
   }
 
@@ -133,6 +139,8 @@
     $("#directions-panel").hide();
     $("input[type=submit]").on("click", function(e){
       e.preventDefault();
+      $("#overlay").removeClass("hidden");
+      $("#modal").removeClass("hidden");
       var data = $(".new_trip").serialize();
       $.post("/trips", data, function(response, status){
         cacheResponses(cleanData(response), getAjaxHash);

@@ -6,6 +6,7 @@ html, body, #map-canvas {
   margin: 0px;
   padding: 0px;
   font-family: "Courier", sans-serif;
+  position: relative;
 }
 
 form {
@@ -43,23 +44,23 @@ input[type=submit] {
 }
 
 #navigation {
-position: fixed;
-top: 0;
 width: 100%;
 color: #ffffff;
 height: 35px;
-text-align: center;
+text-align: left;
 padding-top: 15px;
+z-index: 20;
 /* Adds shadow to the bottom of the bar */
 -webkit-box-shadow: 0px 0px 8px 0px #000000;
 -moz-box-shadow: 0px 0px 8px 0px #000000;
 box-shadow: 0px 0px 8px 0px #000000;
 /* Adds the transparent background */
-background-color: rgba(1, 1, 1, 0.8);
-color: rgba(1, 1, 1, 0.8);
+background-color: black;
+// color: rgba(1, 1, 1, 0.8);
+// position: absolute;
 }
 #navigation a {
-font-size: 14px;
+// font-size: 14px;
 padding-left: 15px;
 padding-right: 15px;
 color: white;
@@ -69,3 +70,33 @@ text-decoration: none;
 #navigation a:hover {
 color: grey;
 } 
+
+#modal {
+  width: 400px;
+  height: 300px;
+  // line-height: 200px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -100px;
+  margin-left: -150px;
+  border-radius: 10px;
+  text-align: center;
+  z-index: 19;
+  background: white;
+  padding: 10px;
+}
+.hidden {
+  display: none;
+}
+
+#overlay {
+  height: 100%;
+  width: 100%;
+  background: black;
+  opacity: 0.60;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 18;
+}
