@@ -5,7 +5,7 @@ class RouteTotalTimeToArrivalTime < ActiveRecord::Migration
   end
 
   def down
-     add_column :routes, :total_time, :integer
-     remove_column :routes, :arrival_time
+    add_column :routes, :total_time, :integer
+    remove_column :routes, :arrival_time
   end
 end
