@@ -11,10 +11,13 @@ gem 'haml-rails'
 gem 'nested_form'
 gem 'dotiw'
 
-gem 'pg'
+group :production do
+  gem 'pg'
+end
 
 group :development, :test do
   gem 'rspec-rails', '2.11.0'
+  gem 'sqlite3'
 end
 
 
