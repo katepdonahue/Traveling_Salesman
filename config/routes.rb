@@ -1,10 +1,10 @@
 TravelingSalesman::Application.routes.draw do
 
-  namespace :api do
-    resources :sub_routes
-  end
+  # namespace :api do
+  #   resources :sub_routes
+  # end
 
-  get '/test' => "trips#index"
+  root :to => 'trips#new', as: 'new_trip'
 
   post '/trips' => "trips#create"
   get '/trips/new' => "trips#new", as: 'new_trip'

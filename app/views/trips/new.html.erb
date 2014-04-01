@@ -57,6 +57,9 @@
     });
     setTimeout(function(){
       callback(postResponses);
+      $.each($("#directions-panel")[0], function(i, div){
+        $(div).prepend("<h1>Step" + (i+1) + "</h1>");
+      });
     }, 32000);
   }
 

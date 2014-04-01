@@ -8,49 +8,9 @@
   <%= csrf_meta_tags %>
   
   <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-  <meta charset="utf-8">
-  <style>
-    html, body, #map-canvas {
-      height: 100%;
-      margin: 0px;
-      padding: 0px;
-      font-family: "Courier", sans-serif;
-    }
-    form {
-      z-index: 6;
-      position: fixed;
-      bottom: 10px;
-      left: 10px;
-      background-color: white;
-      border-radius: 10px;
-      border: 1px solid black;
-      padding: 10px;
-    }
-    a {
-      text-decoration: none;
-      color: gray;
-      font-weight: bold;
-    }
-    input[type=submit] {
-      background-color: white;
-      border: 1px solid gray;
-      border-radius: 5px;
-    }
-    #directions-panel {
-      width: 300px;
-      height: 100%;
-      position: absolute;
-      right: 5px;
-      z-index: 6;
-      background-color: white;
-      padding: 10px;
-      overflow: auto;
-    }
-  </style>
-    
+  <meta charset="utf-8">   
 </head>
 <body>
-
 <%= yield %>
 
 </body>
