@@ -10,9 +10,9 @@ gem 'haml'
 gem 'haml-rails'
 gem 'nested_form'
 gem 'dotiw'
+gem 'sqlite3'
 
 group :development, :test do
-  gem 'sqlite3'
   gem 'rspec-rails', '2.11.0'
 end
 
