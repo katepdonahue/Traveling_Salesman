@@ -11,8 +11,9 @@ gem 'haml-rails'
 gem 'nested_form'
 gem 'dotiw'
 
+gem 'pg'
+
 group :development, :test do
-  gem 'pg'
   gem 'rspec-rails', '2.11.0'
 end
 
