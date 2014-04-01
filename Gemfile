@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.15'
+ruby '2.0.0'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -10,9 +11,13 @@ gem 'haml-rails'
 gem 'nested_form'
 gem 'dotiw'
 
+group :production do
+  gem 'pg'
+end
+
 group :development, :test do
-  gem 'sqlite3'
   gem 'rspec-rails', '2.11.0'
+  gem 'sqlite3'
 end
 
 
@@ -48,4 +53,3 @@ gem 'rabl'
 # gem 'capistrano'
 
 # To use debugger
-gem 'debugger'
